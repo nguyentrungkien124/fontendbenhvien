@@ -1,0 +1,316 @@
+.styles_body2 .styles_chooseBookingInfo .card-body{
+    padding: 12px 15px;
+}
+
+@media (min-width: 1200px) {
+    .styles_colPayments {
+        display: block;
+        flex: 0 0 58.33333333%;
+        max-width: 58.33333333%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .styles_PaymentMethods {
+      min-width: 0;
+    }
+}
+
+.styles_PaymentMethods{
+    padding: 0;
+}
+.styles_PaymentMethods .styles_listPayment{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+}
+.styles_PaymentMethods .styles_listPayment .styles_panel{
+    border: none;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    max-width: 100%;
+}
+
+.styles_PaymentMethods .styles_listPayment .styles_panel .ant-collapse-header{
+    padding: 0;
+}
+.styles_PaymentMethods .styles_listPayment .styles_panel .styles_header{
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+.styles_PaymentMethods .styles_listPayment .styles_panel .styles_header .styles_dot{
+    border: 1px solid #5a5a5a;
+    border-radius: 50%;
+    display: inline-block;
+    padding-top: 1px;
+    min-width: 18px;
+    min-height: 18px;
+    z-index: 0;
+    position: relative;
+    margin-top: -10px;
+    margin-left: -22px;
+}
+/* .styles_PaymentMethods .styles_listPayment .styles_panel .styles_header .styles_dot::after{
+    transform: translate(-50%, -50%)scale(1);
+}
+.styles_PaymentMethods .styles_listPayment .styles_panel .styles_header .styles_dot::after{
+    content: '';
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    width: 64%;
+    height: 64%;
+    background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%);
+    border-radius: 50%;
+    transition: all .11s ease;
+}; */
+
+.styles_PaymentMethods .styles_listPayment .styles_panel .styles_header .styles_label .styles_contentMethod{
+    display: flex;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.75px;
+    color: #003553;
+    margin-top: -10px;
+    
+}
+
+.styles_PaymentMethods .styles_listPayment .styles_panel .styles_header .styles_label .styles_descriptionHeader{
+    color: #7b8794;
+    font-size: 14px;
+}
+.styles_PaymentMethods .styles_listPayment .styles_panel .styles_header .styles_label p{
+    /* margin-bottom: -10px; */
+    margin-top: -12px;
+   
+}
+
+.radio-button {
+    appearance: none;  /* Tắt kiểu mặc định của radio button */
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    /* margin-right: 10px; */
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.radio-button:checked {
+    border-color: #007bff;  /* Màu viền khi được chọn */
+    background-color: #007bff;  /* Màu nền khi được chọn */
+}
+
+.radio-button:checked::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;  /* Màu của dấu chấm bên trong */
+}
+.styles_descriptionHeader{
+    color: #7b8794;
+    font-size: 16px;
+    margin-top: -12px;
+}
+@media (min-width: 1200px) {
+    .styles_colBill {
+        display: block;
+        flex: 0 0 41.66666667%;
+        max-width: 41.66666667%;
+    }
+}
+.styles_paymentTitle{
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: -15px;
+    
+}
+.styles_paymentTitle .styles_paymentTitleIcon{
+    margin-right: 5px;
+    font-size: 1rem;
+    margin-top: 3px;
+}
+.styles_paymentTitle h3{
+    color: #11a2f3;
+    margin: 0;
+    font-weight: 500;
+}
+.styles_cardView{
+    margin-top: 15px;
+    padding-top: 0;
+}
+.styles_cardView .styles_listBill{
+    list-style: none;
+    padding: 0;
+    border-bottom: 1px solid #dfe3eb;
+}
+.styles_paymentInfo{
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #00e0ff;
+}
+.styles_cardView .styles_listBill .styles_itemSubject{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0
+}
+.styles_cardView .styles_listBill .styles_itemSubject .styles_itemKeys .styles_itemIcon{
+    /* margin-right: 5px; */
+    font-size: .875rem;
+}
+.styles_cardView .styles_listBill .styles_itemSubject .styles_itemValues{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    max-width: 50%;
+    text-align: right;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #003553;
+}
+.styles_cardView .styles_listBill .styles_itemDoctor{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0
+}
+
+.styles_cardView .styles_listBill .styles_itemService{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0
+}
+.styles_cardView .styles_listBill .styles_itemSubject .styles_itemKeys,
+.styles_cardView .styles_listBill .styles_paymentInfo .styles_itemKeys,
+.styles_cardView .styles_listBill .styles_itemService .styles_itemKeys{
+    margin: 0;
+    color: #003553;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+}
+.styles_cardView .styles_listBill .styles_itemMoney{
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.styles_cardView .styles_listBill .styles_itemMoney .styles_itemValues{
+    color: #11a2f3;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+}
+.styles_cardView .styles_listPayment{
+    list-style: none;
+    padding: 10px 0 0;
+    margin-bottom: 24px;
+}
+.styles_cardView .styles_listPayment li{
+    display: flex;
+    justify-content: flex-end;
+    font-size: .875rem;
+}
+.styles_cardView .styles_listPayment .styles_itemFee{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    gap: 4px;
+}
+.styles_cardView .styles_listPayment li .styles_itemFee p{
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    color: var(--primary-body-text, #003553);
+    text-align: left;
+}
+.styles_cardView .styles_listPayment li .styles_itemFee svg{
+    min-width: 16px;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-top: 3px;
+}
+.styles_cardView .styles_listPayment li .styles_itemFee span{
+    color: #003553;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    /* line-height: normal;
+    margin-left: 20px;
+    min-width: 120px;
+    text-align: right; */
+}
+.styles_cardView .styles_listPayment li .styles_itemTotal :last-child{
+    padding-bottom: 0;
+}
+.styles_cardView .styles_listPayment li .styles_itemTotal{
+    font-size: .945rem;
+    font-weight: 500;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+}
+.styles_cardView .styles_listPayment li .styles_itemTotal p{
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    color: var(--primary-body-text, #003553);
+}
+.styles_cardView .styles_listPayment li .styles_itemTotal span{
+    color: #11a2f3;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 20px;
+    min-width: 120px;
+    text-align: right;
+}
+.styles_container1 .styles_btnFooter{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.styles_container1 .styles_btnFooter .styles_btnSubmit{
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    padding: 10px 30px;
+    border: none;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 8px;
+    background: var(--primary-gradient-title, linear-gradient(40deg, #00b5f1 0, #00e0ff 100%));
+    box-shadow: 4px 8px 30px 0 rgba(177, 196, 218, .35);
+}

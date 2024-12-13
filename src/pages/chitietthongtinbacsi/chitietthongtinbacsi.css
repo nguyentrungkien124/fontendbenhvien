@@ -1,0 +1,369 @@
+.ant-row {
+    display: flex;
+    flex-flow: row wrap;
+    min-width: 0;
+}
+
+.styles_cardDoctor {
+    background-color: #fff;
+    border-radius: 12px;
+    height: -moz-fit-content;
+    height: fit-content;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 4px 8px 30px 0 rgba(177, 196, 218, .35);
+    border: 1px solid #e8f2f7;
+}
+
+.styles_cardDoctor .styles_leftGroup {
+    gap: 24px;
+    display: flex;
+    padding: 14px;
+}
+
+@media (min-width: 992px) {
+    .styles_leftGroup {
+        /* display: block; */
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+.styles_cardDoctor .styles_leftGroup .styles_logoImg {
+    width: 175px;
+    height: 175px;
+    min-width: 175px;
+    position: relative;
+    background: #eaeaea;
+    border-radius: 8px;
+}
+
+.styles_cardDoctor .styles_groupInfo {
+    width: 100%;
+}
+
+.styles_cardDoctor .styles_groupInfo h1 {
+    color: var(--blue, #11a2f3);
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 8px;
+}
+
+.styles_cardDoctor .styles_groupInfo h1 strong {
+    font-weight: 500;
+}
+
+.styles_cardDoctor .styles_groupInfo .styles_info_General {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4px;
+    line-height: 28px;
+}
+
+.styles_cardDoctor .styles_groupInfo .styles_info_General label {
+    min-width: 105px;
+    font-weight: 700;
+}
+
+.styles_cardDoctor .styles_groupInfo .styles_info_General span {
+    font-weight: 400;
+}
+
+.styles_cardDoctor .styles_frame {
+    align-items: center;
+    background-color: #eff6ff;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 14px;
+    width: 100%;
+}
+
+.styles_cardDoctor .styles_frame .styles_bottomLeft {
+    align-items: flex-start;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 4px;
+    width: 70%;
+}
+.styles_cardDoctor .styles_linear-location{
+    height: 21px;
+    width: 21px;
+}
+.styles_cardDoctor .styles_groupAddress{
+    align-items: flex-start;
+    display: flex;
+    flex: 1 1;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 4px;
+}
+.styles_cardDoctor .styles_hopital{
+    align-self: stretch;
+    color: #003553;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-top: -1px;
+    margin-bottom: 0;
+    word-wrap: break-word;
+}
+.styles_cardDoctor .styles_address{
+    color: var(--grey-text, #858585);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    word-wrap: break-word !important;
+    margin-bottom:0;
+}
+.styles_cardDoctor .styles_frame .styles_bottomRight{
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+}
+.styles_cardDoctor .styles_frame .styles_bottomRight .styles_btnBooking{
+    width: 150px;
+    display: flex;
+    padding: -2px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 36px;
+    align-self: stretch;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 30px;
+    background: linear-gradient(83.63deg,#00b5f1 33.34%,#00e0ff 113.91%);
+    border: 1px solid transparent;
+    color: #fff;
+}
+.styles_introDoctor{
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+.styles_introDoctor .styles_row-doctor{
+    height: 100%;
+}
+@media (min-width: 1200px) {
+    .styles_row-doctor {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+    .styles_col-intro-doctor {
+        display: block;
+        flex: 0 0 54.16666667%;
+        max-width: 54.16666667%;
+    }
+    .styles_col-intro-doctor_right {
+        display: block;
+        flex: 0 0 45.83333333%;
+        max-width: 45.83333333%;
+    }
+}
+.styles_introDoctor .styles_row-doctor .styles_col-intro-doctor .styles_intro{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 4px 8px 30px rgba(192,202,214,.35);
+}
+.styles_introDoctor .styles_row-doctor .styles_col-intro-doctor .styles_intro .styles_introIntroduce{
+    margin-bottom: 8px;
+    margin-top: -5px;
+    background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 29px;
+}
+.styles_introDoctor .styles_row-doctor .styles_col-intro-doctor .styles_timeline{
+    background-color: #fff;
+    margin-top: 16px;
+    box-shadow: 4px 8px 30px rgba(192,202,214,.35);
+    border-radius: 16px;
+    padding: 20px;
+    min-height: 450px;
+}
+.styles_introDoctor .styles_row-doctor .styles_colNews{
+    position: relative;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 4px 8px 30px rgba(192, 202, 214, .35);
+    height: 100%;
+    padding: 20px;
+}
+.styles_introDoctor .styles_row-doctor .styles_colNews p{
+    margin-bottom: 0;
+    background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 29px;
+    margin-top: -6px;
+}
+.styles_introDoctor .styles_row-doctor .styles_colNews .styles_boxNews{
+    position: absolute;
+    top: 49px;
+    left: 0;
+    width: 100%;
+    padding:  0 0 0 20px;
+    max-height: calc(100% - 86px);
+    margin-top: 16px;
+    margin-bottom: 20px;
+    max-width: calc(100%-20px);
+    overflow: scroll;
+}
+.styles_introDoctor .styles_row-doctor .styles_colNews .styles_boxNews .styles_newItem{
+    margin-bottom: 20px;
+}
+.styles_cardItem{
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+}
+.styles_cardItem .styles_cards .styles_image{
+    position: relative;
+    aspect-ratio: 1.6;
+    min-height: 100px;
+    min-width: 140px;
+}
+.styles_doctorWrapper{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.styles_doctorWrapper .styles_headerTitle{
+    background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 700;
+    font-size: 31px;
+    line-height: 36px;
+    border-bottom: 36px;
+    margin-bottom: 36px;
+}
+.styles_listDoctor{
+    display: flex;
+    flex-flow: row wrap;
+    min-width: 0;
+}
+.styles_doctorWrapper .styles_listDoctor .styles_cardItem{
+    width: 100%;
+}
+.styles_doctorWrapper .styles_cardItem{
+    border-radius: 16px;
+}
+@media (min-width: 992px) {
+    .styles_cardItem {
+        flex: 0 0 45%;
+        max-width: 45%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+.styles_cardDoctor{
+    background-color: #fff;
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #d7dbe0;
+}
+.styles_cardDoctor .styles_leftGroup{
+    gap: 12px;
+    display: flex;
+    padding: 14px;
+}
+.styles_cardDoctor .styles_leftGroup .styles_logoImg{
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    position: relative;
+    background: #eaeaea;
+    border-radius: 12px;
+}
+.styles_cardDoctor .styles_leftGroup .styles_logoImg .styles_Avatar{
+    background-position: top;
+    background-size: cover;
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+}
+.styles_Avatar{
+    background-image: url("https://cdn.medpro.vn/medpro-production/digimed/doctors/1712470799458-khoa.png")
+}
+.styles_cardDoctor .styles_leftGroup .styles_logoImg .styles_detailDoctor{
+    display: flex
+;
+    width: 120px;
+    height: 27px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 8px 8px;
+    background: hsla(0, 0%, 100%, .8);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: none;
+    position: absolute;
+    bottom: 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .1);
+    font-size: 14px;
+}
+.styles_cardDoctor .styles_groupInfo{
+    width: 100%;
+}
+.styles_cardDoctor .styles_groupInfo h3{
+    width: 100%;
+    color: #11a2f3;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 8px;
+    font-family: sans-serif;
+    display: block;
+}
+/* @media (min-width: 992px) {
+    .styles_cardItem {
+        display: block;
+        flex: 0 0 70%;
+        max-width: 70%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+} */
+.styles_listDoctor {
+    display: flex;
+    margin-left: -10px;
+    margin-right: -10px;
+    row-gap: 20px;
+    flex-wrap: wrap;
+}
+.styles_listDoctor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Căn chỉnh đều các phần tử */
+}
+
+.styles_cardItem {
+    flex: 1 1 calc(45% - 20px); /* Đặt chiều rộng lớn hơn */
+    margin: 10px; /* Khoảng cách giữa các phần tử */
+    box-sizing: border-box; /* Đảm bảo padding và border không làm thay đổi kích thước */
+    min-width: 300px; /* Đặt chiều rộng tối thiểu nếu cần */
+}

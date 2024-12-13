@@ -1,0 +1,206 @@
+/* .styles_container3{
+    max-width: 1140px;
+    width: 100%;
+    margin: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.ant-row1{
+    display: flex;
+    flex-flow: row wrap;
+    min-width: 0;
+} */
+.styles_cardBody{
+    width: 100%;
+    padding: 2px 16px 0;
+}
+.styles_cardBody .styles_serviceTable{
+    width: 100%;
+}
+.styles_serviceTable{
+    margin-bottom: 1rem;
+}
+
+.styles_serviceTable .styles_stt{
+    min-width: 50px;
+    text-align: center;
+}
+.styles_serviceTable .styles_th_title{
+    text-align: left;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 650;
+    line-height: normal;
+}
+
+.styles_serviceTable td, .styles_serviceTable th{
+    padding: 10px 9px;
+}
+
+.styles_serviceTable .styles_money{
+    text-align: right;
+}
+
+.styles_serviceTable .styles_action{
+    text-align: center;
+}
+.styles_serviceTable tbody tr{
+    border-top: 1px solid #e0e0e0;
+    
+}
+
+.styles_serviceTable .styles_stt{
+    min-width: 50px;
+    text-align: center;
+}
+
+.styles_serviceTable .styles_td_sub{
+    width: fit-content;
+    max-width: 200px;
+}
+
+.styles_serviceTable .styles_time{
+    text-align: left;
+}
+
+.styles_serviceTable .styles_td_sub{
+    margin-bottom: 0;
+}
+
+.styles_serviceTable .styles_btnDelete{
+    padding: 6px 12px;
+    background-color: transparent;
+    border: transparent;
+    display: flex
+                    ;
+    align-items: center;
+    justify-content: center;
+    transition: all .3 ease;
+
+}
+
+.styles_serviceTable .styles_btnDelete svg{
+    fill: #5a5a5a;
+    font-size: 13px;
+}
+.styles_gridRows{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 0px;
+}
+.styles_item{
+    display: flex;
+}
+.styles_gridRows>div{
+    background-color: hsla(0, 0%, 100%, .8);
+    font-size: 30px;
+}
+.styles_titleInfo{
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 130px;
+    color: #003553;
+    font-weight: 400;
+    font-size: 16px;
+     font-style: normal;
+    line-height: normal; 
+}
+.styles_titleInfo svg{
+    font-size: .875rem;
+    margin-right: 5px;
+    margin-top: 15px;
+    color: #b1b1b1;
+}
+/* .ok{
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 130px;
+    color: #003553;
+    font-weight: 400;
+    font-size: 16px;
+     font-style: normal;
+    line-height: normal; 
+} */
+
+.styles_content{
+    font-size: 16px;
+     font-style: normal;
+    line-height: normal; 
+    font-weight: 500;
+    white-space: normal;
+    margin-top: 12px;
+    margin-left: -7px;
+}
+.styles_attentionConfirmPayment{
+    margin-top: 12px;
+    border-radius: 12px;
+    padding: 10px;
+    gap: 6px;
+    display: flex;
+}
+.styles_attentionConfirmPayment .styles_content{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    color: rgb(245, 34, 45);
+    margin-bottom: 0;
+    margin-top: -2px;
+    margin-left: 5px;
+}
+
+.styles_mobile{
+    display: block;
+}
+
+.styles_buttons{
+    margin: 24px 0;
+    display: flex;
+    justify-content: space-between;
+ 
+}
+
+.styles_buttons .styles_btnBack{
+    color:#003553;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.styles_buttons .styles_btnBack .styles_icon{
+    display: flex;
+    align-items: center;
+}
+.styles_groupButton{
+    align-items: center;
+    display: inline-flex;
+}
+.styles_buttons .styles_btnSubmit{
+    color: #fff;
+    text-shadow: 2px 2px 4px 0 rgba(96, 129, 180, .25);
+    font-size: 16px;
+    font-style: normal;
+    padding: 10px 30px;
+    border: none;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 8px;
+    background: var(--primary-gradient-title, linear-gradient(40deg, #00b5f1 0, #00e0ff 100%));
+    box-shadow: 4px 8px 30px 0 rgba(177, 196, 218, .35);
+}
+.ant-modal-confirm {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ant-modal-confirm-body {
+    padding: 20px;
+}
+
+.ant-modal-confirm-btns {
+    margin-top: 24px;
+}

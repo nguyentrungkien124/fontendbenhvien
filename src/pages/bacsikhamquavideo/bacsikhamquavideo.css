@@ -1,0 +1,534 @@
+.styles_body1 {
+    margin-top: 140px;
+    background: #e8f2f7;
+    min-height: 65vh;
+    color: #003553;
+    /* Để các phần tử con kéo dài toàn bộ chiều cao */
+}
+
+.styles_main {
+    width: auto;
+    background: #e8f2f7;
+    display: flex;
+    flex-direction: column;
+    /* Hoặc row tùy thuộc vào bố cục bạn muốn */
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.styles_main .styles_header {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 14px;
+    height: auto;
+    width: 100%;
+
+}
+
+.styles_bannerWrapper {
+    width: 100%;
+    position: relative;
+    height: 400px;
+    margin-bottom: 32px;
+    display: flex;
+    background-image: url(https://medpro.vn/_next/static/media/BannerDefaul.4f7c4739.png);
+}
+
+.styles_bannerWrapper .styles_bannerContainer {
+    position: relative;
+    display: flex;
+    height: 100%;
+    max-width: 1180px;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+}
+
+.styles_bannerWrapper .styles_bannerContainer .styles_card {
+    z-index: 99;
+    padding: 30px;
+    border-radius: 30px;
+    border: 3px solid #fff;
+    backdrop-filter: blur(30px);
+    background-color: hsla(0, 0%, 100%, .85);
+    box-shadow: 4px 8px 20px 0 hsla(199, 9%, 64%, .3);
+    max-width: 750px;
+    width: 100%;
+    height: fit-content;
+    margin: auto;
+}
+
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_title_content h1 {
+    font-family: sans-serif;
+    font-size: 39px;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    color: #00b5f1;
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_title_content .styles_title_content_span {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: .04em;
+    text-align: left;
+    position: relative;
+    padding-bottom: 16px;
+    text-wrap: wrap;
+}
+
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise {
+    padding-top: 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid #00b5f1;
+}
+
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise p {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+    text-align: left;
+    margin: 0;
+}
+
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise .styles_advise_title {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+}
+
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise .styles_advise_title .styles_advise_phone {
+    background: linear-gradient(40deg, #00b5f1, #00e0ff);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise .styles_advise_title .styles_support {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, .04), 0 2px 6px 0 rgba(0, 0, 0, .04), 0 10px 20px 0 rgba(0, 0, 0, .04);
+    border-radius: 50%;
+
+}
+
+.styles_advise span {
+    font-size: 24px;
+    /* Kích thước chữ */
+    font-weight: 700;
+    /* Độ đậm */
+    color: #00b5f1;
+    /* Màu chữ */
+    margin-left: -6px;
+    /* Khoảng cách bên trái */
+}
+
+/* .styles_bannerWrapper .styles_bannerContainer .styles_banner_img{
+   bottom: 0;
+   right: -7%;
+   z-index: 1;
+   width: 520px;
+   height: 900px;
+} */
+
+/* tìm kiếm */
+.styles_main .styles_body_search {
+    margin-bottom: 20px;
+}
+
+.styles_main .styles_body_search .styles_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.styles_main .styles_body_search .styles_form .styles_formContent {
+    display: flex;
+    align-items: center;
+    width: 752px;
+    height: 52px;
+    background-color: #fff;
+    box-shadow: 4px 8px 30px rgba(192, 202, 214, .35);
+    overflow: hidden;
+    border-radius: 16px;
+    position: relative;
+    padding: 14px;
+}
+
+.styles_main .styles_body_search .styles_form .styles_formContent .styles_item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.styles_main .styles_body_search .styles_form .styles_formContent .styles_item .styles_inputItem {
+    width: 100%;
+    overflow: hidden;
+}
+
+.styles_main .styles_body_search .styles_form .ant-form-item {
+    margin-bottom: 0;
+
+}
+
+.ant-form-item {
+    box-sizing: border-box;
+    padding: 0;
+    color: rgba(0, 0, 0, .85);
+    font-size: 14px;
+    line-height: 1.5715;
+    list-style: none;
+    margin: 0 0 24px;
+    vertical-align: top;
+}
+
+.ant-row {
+    flex-flow: row wrap;
+    min-width: 0;
+    display: flex;
+}
+
+.ant-form-item-control:first-child:not([class^=ant-col-]):not([class*=" ant-col-"]) {
+    width: 100%;
+}
+
+.ant-col {
+    position: relative;
+    max-width: 100%;
+    min-height: 1px;
+}
+
+.ant-form-item-control {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.ant-form-item-control-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+}
+
+.ant-form-item-control-input-content {
+    flex: auto;
+    max-width: 100%;
+}
+
+.ant-form-item .styles_selectItem {
+    width: 100%;
+}
+
+.styles_selectItem {
+    position: relative;
+    min-width: 0;
+    padding: 4px 11px;
+    color: rgba(0, 0, 0, .85);
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 3px;
+    transition: all .3s;
+    display: inline-flex;
+}
+
+.ant-input-prefix {
+    margin-right: 4px;
+    display: flex;
+    flex: none;
+    align-items: center;
+    color: #B1B1B1;
+
+}
+
+.ant-input {
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    color: rgba(0, 0, 0, .85);
+    font-size: 14px;
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    padding: 0;
+}
+
+/* card */
+.ant-row5 {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 8px; /* Giảm khoảng cách giữa các phần tử */
+    justify-content: center;
+}
+
+@media (min-width: 800px) {
+    .styles_the {
+        display: block;
+        flex: 0 0 40%; /* Giảm bề rộng để các phần tử vừa vặn trong hàng */
+        max-width: 35%; /* Đảm bảo không vượt quá 30% */
+    }   
+}
+.styles_content:hover{
+    box-shadow: none;
+    border: 1px solid #00b5f1;
+    cursor: pointer;
+}
+.styles_content {
+    width: 96.2%;
+    height: 100%;
+    border-radius: 16px;
+    background: #fff;
+    margin: 10px auto;
+    border: 1px solid #fff;
+    min-height: 140px;
+    padding: 12px !important;
+    /* margin-right: -20px; */
+}
+
+.styles_content .styles_content_title {
+    gap: 20px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.styles_content .styles_content_title .styles_images {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    min-height: 120px;
+    text-align: left;
+    position: relative;
+    border-radius: 16px !important;
+}
+
+.styles_content .styles_content_title .styles_images .styles_btnView {
+    display: flex;
+    width: 120px;
+    height: 27px;
+    padding: 10px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 0 0 8px 8px;
+    background: hsla(0, 0%, 100%, .8);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: none !important;
+    position: absolute;
+    bottom: 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .1);
+    font-size: 14px;
+}
+
+.styles_content .styles_content_title .styles_images .styles_rating {
+    width: 90%;
+    border-radius: 8px;
+    border: .5px solid var(--primary-gradient-title, #00b5f1);
+    background: var(--Light-blue, #e6f2ff);
+    position: absolute;
+    bottom: -40px;
+    left: 5%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    height: 34px;
+    gap: 8px;
+}
+
+.styles_content .styles_content_title .styles_images .styles_rating .styles_rate {
+    display: flex;
+    gap: 2px;
+    width: 100%;
+    justify-content: center;
+    margin-left: 1px;
+}
+
+.styles_content .styles_content_title .styles_images .styles_rating span {
+    color: var(--text-blue, #11a2f3);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+}
+
+.styles_content .styles_content_title .styles_images .styles_rating .styles_rate p {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.styles_content .styles_content_title .styles_images .styles_rating .styles_totalRate p {
+    margin-top: -2px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.styles_content .styles_content_title .styles_images .styles_rating .styles_rate ::before {
+    content: "";
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    width: .8px;
+    height: 18px;
+    background: #11a2f3;
+}
+
+.styles_content .styles_content_title .styles_content_title_int {
+    height: 100%;
+    width: 100%;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_groupTitle {
+    display: flex;
+    gap: 12px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #dedede;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_groupTitle .styles_title {
+    width: 100%;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 0;
+    background: var(--primary-gradient-title, linear-gradient(84deg, #00b5f1 33.34%, #00e0ff 113.91%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_time {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #003553;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_time span {
+    min-height: 15px;
+    min-width: 15px;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_time .styles_address {
+    text-align: left;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_time .styles_address p {
+    color: var(--primary-body-text, #003553);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_treatment {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #003553;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    gap: 8px;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_treatment span {
+    min-height: 15px;
+    min-width: 15px;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_treatment .styles_treatmentDesc {
+    text-align: left;
+    position: relative;
+    display: flex;
+}
+
+.styles_content .styles_content_title .styles_content_title_int .styles_treatment .styles_treatmentDesc .styles_treatmentContent {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--primary-body-text, #003553);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 0px;
+}
+
+.styles_desktop {
+    height: 42px;
+}
+
+.styles_btnControl {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+    height: 42px;
+    position: absolute;
+    bottom: 0;
+}
+
+.styles_btnControl .styles_btnBooking {
+    background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%);
+    color: #fff;
+    width: 217px;
+    height: 35px;
+    border: none;
+    padding: 10px 16px;
+    transition: all .3s ease;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: normal;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

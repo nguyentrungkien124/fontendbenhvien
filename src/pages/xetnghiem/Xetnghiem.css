@@ -1,0 +1,364 @@
+.styles_body1{
+    margin-top: 140px;
+    background: #e8f2f7;
+    min-height: 65vh;
+    color: #003553;
+}
+.styles_main{
+    width: auto;
+    background: #e8f2f7;
+}
+.styles_main .styles_header{
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 14px;
+    height: auto;
+    width: 100%;
+}
+.styles_bannerWrapper{
+    width: 100%;
+    position: relative;
+    height: 400px;
+    margin-bottom: 32px;
+    display: flex;
+    background-image: url(	https://medpro.vn/_next/static/media/BannerDefaul.4f7c4739.png);
+}
+.styles_bannerWrapper .styles_bannerContainer{
+    position: relative;
+    display: flex;
+    height: 100%;
+    max-width: 1180px;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+}
+.styles_bannerWrapper .styles_bannerContainer .styles_card{
+    z-index: 99;
+    padding: 30px;
+    border-radius: 30px;
+    border: 3px solid #fff;
+    backdrop-filter: blur(30px);
+    background-color: hsla(0, 0%, 100%, .85);
+    box-shadow: 4px 8px 20px 0 hsla(199,9%,64%,.3);
+    max-width: 750px;
+    width: 100%;
+    height: fit-content;
+    margin: auto;
+}
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_title_content h1{
+    font-family: sans-serif;
+    font-size: 39px;
+    font-weight: 700;
+    line-height: normal;
+    text-align: left;
+    color: #00b5f1;
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_title_content .styles_title_content_span{
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: .04em;
+    text-align: left;
+    position: relative;
+    padding-bottom: 16px;
+    text-wrap: wrap;
+}
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise{
+    padding-top: 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid #00b5f1;
+}
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise p{
+    font-size: 24px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+    text-align: left;
+    margin: 0;
+}
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise .styles_advise_title{
+    display:flex ;
+    gap: 10px;
+    align-items: center;
+
+}
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise .styles_advise_title .styles_advise_phone{
+    background: linear-gradient(40deg,#00b5f1,#00e0ff);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.styles_bannerWrapper .styles_bannerContainer .styles_card .styles_advise .styles_advise_title .styles_support{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,.04),0 2px 6px 0 rgba(0,0,0,.04),0 10px 20px 0 rgba(0,0,0,.04);
+    border-radius: 50%;
+
+}
+.styles_advise span {
+    font-size: 24px; /* Kích thước chữ */
+    font-weight: 700; /* Độ đậm */
+    color: #00b5f1; /* Màu chữ */
+    margin-left: -6px; /* Khoảng cách bên trái */
+}
+/* .styles_bannerWrapper .styles_bannerContainer .styles_banner_img{
+   bottom: 0;
+   right: -7%;
+   z-index: 1;
+   width: 520px;
+   height: 900px;
+} */
+
+.ant-row{
+    display: flex;
+    flex-flow: row wrap;
+    min-width: 0;
+    
+}
+@media (min-width: 992px) {
+    .ant-row1 {
+        order: 1;
+        display: block;
+        flex: 0 0 62.5%;
+        max-width: 43.5%;
+    }
+}
+.styles_card{
+    position: relative;
+    align-items: center;
+    padding: 3px;
+    box-shadow: 0 4px 30px rgba(149,179,207,.2);
+    border-radius: 20px;
+    width: 100%;
+    min-height: 130px;
+    margin-bottom: 26px;
+    background: #fff;
+    border:  2px solid transparent ;
+    overflow: hidden;
+    
+
+}
+.styles_pickCard{
+    border-color: #00b5f1;
+}
+.styles_pickCard .styles_DetailInfo{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+@media (min-width: 992px) {
+    .styles_DetailInfo {
+       
+        flex:0 0 100%;
+        max-width: 100%;
+    }
+}
+.styles_card .styles_cardImage{
+    min-width: 90px;
+    min-height: 90px;
+}
+.styles_card .styles_cardBody{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.styles_card .styles_cardBody .styles_cardContent{
+    width: 100%;
+}
+.styles_card .styles_cardBody .styles_cardContent .styles_title{
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 29px;
+    margin-bottom: 12px;
+    width: 90%;
+}
+.styles_card .styles_cardBody .styles_cardContent .styles_contentItem{
+    display: flex;
+    word-wrap: break-word;
+    gap: 5px;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 18px;
+    color: #858585;
+    margin-bottom: 8px;
+}
+.styles_card .styles_cardBody .styles_cardContent .styles_contentItem .styles_icon{
+    width: 16px;
+    height: 16px;
+}
+.ant-1{
+    display: block;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.styles_card .styles_cardBody .styles_cardContent .styles_price{
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0;
+    font-size: 20px;
+    line-height: 23px;
+}
+.styles_card .styles_cardBody .styles_cardContent .styles_price .styles_sale{
+    color: #ffb54a;
+    font-weight: 700;
+    margin-top: 0;
+    margin-left: 18px;
+
+}
+
+.ant-2{
+    display: block;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.styles_card .styles_btnControl{
+   display: flex;
+   flex-direction: row-reverse;
+   justify-content: right;
+   align-items: flex-end;
+   gap: 12px;
+   width: 100%;
+}
+.styles_card .styles_btnControl .styles_btnBooking{
+    background: linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%);
+    color: #fff;
+}
+.styles_card .styles_btnControl button{
+    border: none;
+    padding: 10px 16px;
+    width: 145px;
+    height: 45px;
+    transition: all .3s ease;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: normal;
+}
+/* tìm kiếm */
+.styles_main .styles_body_search{
+    margin-bottom: 20px;
+}
+.styles_main .styles_body_search .styles_form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+.styles_main .styles_body_search .styles_form .styles_formContent{
+    display: flex;
+    align-items: center;
+    width: 752px;
+    height: 52px;
+    background-color: #fff;
+    box-shadow: 4px 8px 30px rgba(192,202,214,.35);
+    overflow: hidden;
+    border-radius: 16px;
+    position: relative;
+    padding: 14px;
+}
+.styles_main .styles_body_search .styles_form .styles_formContent .styles_item{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.styles_main .styles_body_search .styles_form .styles_formContent .styles_item .styles_inputItem{
+    width: 100%;
+    overflow: hidden;
+}
+.styles_main .styles_body_search .styles_form .ant-form-item{
+    margin-bottom: 0;
+
+}
+.ant-form-item{
+    box-sizing: border-box;
+    padding: 0;
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+    line-height: 1.5715;
+    list-style: none;
+    margin: 0 0 24px;
+    vertical-align: top;
+}
+.ant-row{
+    flex-flow: row wrap;
+    min-width: 0;
+    display: flex;
+}
+.ant-form-item-control:first-child:not([class^=ant-col-]):not([class*=" ant-col-"]){
+    width: 100%;
+}
+.ant-col{
+    position: relative;
+    max-width: 100%;
+    min-height: 1px;
+}
+.ant-form-item-control{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.ant-form-item-control-input{
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+}
+.ant-form-item-control-input-content{
+    flex: auto;
+    max-width: 100%;
+}
+.ant-form-item .styles_selectItem{
+    width: 100%;
+}
+.styles_selectItem{
+    position: relative;
+    min-width: 0;
+    padding: 4px 11px;
+    color: rgba(0,0,0,.85);
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 3px;
+    transition: all .3s;
+    display: inline-flex;
+}
+.ant-input-prefix{
+    margin-right: 4px;
+    display: flex;
+    flex: none;
+    align-items: center;
+    color: #B1B1B1;
+   
+}   
+
+.ant-input{
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    padding: 0;
+}
