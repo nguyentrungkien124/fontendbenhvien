@@ -26,9 +26,28 @@ interface bacsi {
     kinh_nghiem: string;
     gioi_thieu: string;
     chuyen_tri: string;
+    ten_chuyen_mon:string;
   }
+  interface ChuyenMon {
+    id: number;
+    ten_chuyen_mon: string;
+}
+
 const Chitietthongtinbacsi = () => {
     const [doctorData, setDoctorData] = useState<bacsi | null>(null);
+    const [chuyenMonList, setChuyenMonList] = useState<ChuyenMon[]>([]);
+
+    useEffect(() => {
+        const fetchChuyenMonList = async () => {
+            try {
+                const response = await axios.get('http://localhost:9999/api/chuyenmon/getall');
+                setChuyenMonList(response.data);
+            } catch (error) {
+                console.error('Lỗi khi lấy danh sách chuyên môn:', error);
+            }
+        };
+        fetchChuyenMonList();
+    }, []);
 
     useEffect(() => {
         const bacsiId = sessionStorage.getItem('bacsi_id'); // Lấy id bác sĩ từ sessionStorage
@@ -37,8 +56,15 @@ const Chitietthongtinbacsi = () => {
             if (bacsiId) { // Kiểm tra xem bacsiId có tồn tại không
                 try {
                     const response = await axios.get(`http://localhost:9999/api/bacsi/getbacsibyID/${bacsiId}`);
-                    setDoctorData(response.data[0]);
-                    console.log(response.data);
+                   const doctor = response.data[0];
+
+                    // Tìm tên chuyên môn dựa trên chuyen_mon
+                    const chuyenMon = chuyenMonList.find(c => c.id.toString() === doctor.chuyen_mon);
+                    if (chuyenMon) {
+                        doctor.ten_chuyen_mon = chuyenMon.ten_chuyen_mon; // Gán tên chuyên môn
+                    }
+
+                    setDoctorData(doctor);
                 } catch (error) {
                     console.error("Error fetching doctor data:", error);
                 }
@@ -46,7 +72,7 @@ const Chitietthongtinbacsi = () => {
         };
 
         fetchDoctorData();
-    }, []);
+    }, [chuyenMonList]);
 
 
     return (
@@ -96,7 +122,7 @@ const Chitietthongtinbacsi = () => {
                                         <h1>{doctorData.chuc_danh}{doctorData.ho_ten}</h1>
                                         <div className="styles_info_General">
                                             <label>Chuyên khoa</label>
-                                            <span>{doctorData.chuyen_mon}</span>
+                                            <span>{doctorData.ten_chuyen_mon}</span>
                                         </div>
                                         <div className="styles_info_General">
                                             <label>Chuyên trị</label>

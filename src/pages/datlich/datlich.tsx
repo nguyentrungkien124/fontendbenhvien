@@ -1,4 +1,4 @@
-import { faCalendarAlt, faChevronRight, faCircleLeft, faCircleRight, faHospital, faMedkit, faStethoscope } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarAlt, faChevronRight, faCircleLeft, faCircleRight, faHospital, faMedkit, faMoneyBillWave, faStethoscope } from "@fortawesome/free-solid-svg-icons";
 import "../datlich/datlich.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
@@ -11,14 +11,14 @@ interface Shift {
     gio_ket_thuc: string;
     id: number;
     trang_thai: number;
-    gia:string// Thêm id để xác định ca khám
+    gia: string// Thêm id để xác định ca khám
 }
 
 interface DoctorInfo {
     id: number;
     name: string;
     specialty: string;
-    gia:string;
+    gia: string;
 }
 
 const socket = io('http://localhost:9999'); // Kết nối với server Socket.IO
@@ -239,7 +239,8 @@ const Datlich = () => {
                 shift,
                 doctorName,
                 doctorSpecialty,
-                gia
+                gia,
+                appointmentType: 'chuyenkhoa'
             })
         );
 
@@ -325,14 +326,15 @@ const Datlich = () => {
                                             Bác sĩ: {doctorInfo?.name || "Chưa chọn bác sĩ"}
                                         </div>
                                     </li>
-
-                                    <li>
-                                        <FontAwesomeIcon icon={faStethoscope} />
+                                    <li style={{ marginTop: 15 }}>
+                                        <FontAwesomeIcon icon={faMoneyBillWave} />
                                         <div className="styles_infoHopital">
                                             <span></span>
-                                            Bác sĩ: {doctorInfo?.gia || "Chưa chọn bác sĩ"}
+                                            Giá tiền: {(Number(doctorInfo?.gia) || 0).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                         </div>
                                     </li>
+
+
 
                                     <li style={{ marginTop: 15 }}>
                                         <FontAwesomeIcon icon={faCalendarAlt} />

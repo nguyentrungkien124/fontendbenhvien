@@ -31,6 +31,8 @@ interface User {
   hinh_anh: string; // varchar(255)
   created_at: Date; // timestamp
   updated_at: Date; // timestamp
+  CMND:string,
+  nghe_nghiep:string
 }
 
 const Thongtinnguoidung = () => {
@@ -259,7 +261,7 @@ const Thongtinnguoidung = () => {
               </span>
             }
           >
-            033203005858
+                {userInfo.CMND}
           </Descriptions.Item>
           <Descriptions.Item
             label={
@@ -279,7 +281,7 @@ const Thongtinnguoidung = () => {
               </span>
             }
           >
-            Sinh viên
+                {userInfo.nghe_nghiep}
           </Descriptions.Item>
           <Descriptions.Item
             label={

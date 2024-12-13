@@ -27,6 +27,7 @@ import Thongtinnguoidung from './pages/thongtinnguoidung/thongtinnguoidung';
 import Capnhatthongtinnguoidung from './pages/capnhatthongtin/capnhatthongtin';
 import Lichsudadatlich from './pages/lichsukhambenh/lichsukhambenh';
 import Bacsikhamquavideo from './pages/bacsikhamquavideo/bacsikhamquavideo';
+import Chondichvu from './pages/chondichvu/chondichvu';
 
 const router = createBrowserRouter([
   {
@@ -91,11 +92,12 @@ const router = createBrowserRouter([
       {
         path: "/Bacsikhamquavideo",
         element: <Bacsikhamquavideo />
-      }
-
-
-
-
+      },
+      {
+        path: "/Chondichvu",
+        element: <Chondichvu />
+      },
+      
 
     ],
   },

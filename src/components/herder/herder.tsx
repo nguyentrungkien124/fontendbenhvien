@@ -163,9 +163,9 @@ const Herder = function () {
                                         <li>
                                             <div className="styles_item">
                                                 <a href="/Chuyenkhoa">Chuyên khoa</a>
-                                                <article className="styles_icon">
+                                                {/* <article className="styles_icon">
                                                     <FontAwesomeIcon icon={faCaretDown} />
-                                                </article>
+                                                </article> */}
 
                                             </div>
                                         </li>

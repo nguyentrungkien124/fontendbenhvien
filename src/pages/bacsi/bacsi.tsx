@@ -158,7 +158,7 @@ const ChonBacSi = function () {
                                             </div>
                                         </li>
                                         <li>
-                                            <span>
+                                            <span>  
                                                 <FontAwesomeIcon icon={faMedkit} />
                                             </span>
                                             {bacSiList.length > 0 ? (

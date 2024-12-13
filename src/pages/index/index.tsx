@@ -93,9 +93,9 @@ const Index = function () {
 
     const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
     const banners = [
-        "../image/banner1.webp",
-        "../image/banner2.webp",
-        "../image/banner3.jpg",
+        "../image/home15_3_09.jpg",
+        "../image/home15_3_10.jpg",
+        "../image/home15_3_11.jpg",
     ];
 
     const BANNERS_TO_SHOW = 1;
