@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 interface BacSi {
+    
     id: string;
     ho_ten: string;
     khoa_id: number;
@@ -111,22 +112,40 @@ const Bacsikhamquavideo = function () {
     const endIndex = startIndex + itemsPerPage;
     const doctorsToDisplay = doctors.slice(startIndex, endIndex);
     const handleBooking = (doctor: BacSi) => {
+        // Lấy ngày hiện tại
+        const today = new Date();
+        // Định dạng ngày theo kiểu "YYYY-MM-DD"
+        const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        
         const bookingInfo = {
-            id:doctor.id,
-            specialty: doctor.ten_chuyen_mon,
+            bac_si_id: doctor.id,
+            date: formattedDate, // Thêm ngày hiện tại vào thông tin đặt lịch
+            doctorSpecialty: doctor.ten_chuyen_mon,
             doctorName: doctor.ho_ten,
-            price: parseInt(doctor.gia || "0").toLocaleString('vi-VN') + ' VNĐ',
+            gia: doctor.gia,
             appointmentType: 'online'
         };
-
+    
         // Lưu thông tin vào sessionStorage
-        sessionStorage.setItem('bookingInfo', JSON.stringify(bookingInfo));
-
+        sessionStorage.setItem('selectedAppointment', JSON.stringify(bookingInfo));
+    
         // Điều hướng đến trang chọn dịch vụ hoặc trang khác
         navigate("/Chondichvu");
     };
-
     
+
+    // sessionStorage.setItem(
+    //     "selectedAppointment",
+    //     JSON.stringify({
+    //         date: `${currentDate}-${month + 1}-${year}`,
+    //         shift,
+    //         doctorName,
+    //         doctorSpecialty,
+    //         gia,
+    //         appointmentType: 'chuyenkhoa'
+    //     })
+    // );
+
 
     return (
         <div className="styles_body1">

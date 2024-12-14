@@ -112,17 +112,15 @@ const Thanhtoan = () => {
         try {
             setLoading(true);
 
-            // Lấy dữ liệu bác sĩ từ sessionStorage
-            const doctorData = JSON.parse(sessionStorage.getItem("selectedDoctor") || "{}");
-            const bacSiId = doctorData?.id || ""; // Ensure bacSiId is a string
+            const doctorData = JSON.parse(sessionStorage.getItem("selectedAppointment") || "{}");
+            const bacSiId = doctorData?.bac_si_id || "";
             const gia = doctorData?.gia || "";
-            const chuyen_khoa = doctorData?.specialty || "";
+            const chuyen_khoa = doctorData?.doctorSpecialty || "";
 
             if (!appointment?.date) {
                 throw new Error('Ngày hẹn không hợp lệ');
             }
 
-            // Log để kiểm tra dữ liệu appointment
             console.log("Appointment Data:", appointment);
             console.log("User ID:", userId);
             console.log("Bac Si ID:", bacSiId);
@@ -140,32 +138,27 @@ const Thanhtoan = () => {
             const startTime = appointment?.shift?.gio_bat_dau;
             const endTime = appointment?.shift?.gio_ket_thuc;
 
-            if (!startTime || !endTime) {
-                throw new Error('Thời gian không hợp lệ');
-            }
-
-            const formattedShift = `${startTime}-${endTime}`;
-            console.log("Formatted Shift:", formattedShift);
+            // Nếu không có thời gian hợp lệ, để ca đặt là rỗng
+            const formattedShift = startTime && endTime ? `${startTime}-${endTime}` : '';
 
             const bookingData = {
                 nguoi_dung_id: parseInt(userId || "0"),
                 bac_si_id: bacSiId,
                 goi_kham_id: "2",
-                ngay_hen: formattedDate,
-                ca_dat: formattedShift,
+                ngay_hen: appointment.date,
+                ca_dat: formattedShift || "Khám online 1h", // Để rỗng nếu không có thời gian hợp lệ
                 trang_thai: "1",
-                gia:gia,
-                chuyen_khoa:chuyen_khoa,
-                ly_do:"",
+                gia: gia,
+                chuyen_khoa: chuyen_khoa,
+                ly_do: "",
                 ghi_chu: "Đặt lịch khám qua website",
                 ngay_tao: new Date().toISOString().split('T')[0]
             };
 
-            // Log dữ liệu trước khi gửi API
             console.log("Booking Data to be sent:", bookingData);
 
             // Kiểm tra các giá trị bắt buộc
-            if (!bookingData.nguoi_dung_id || !bookingData.bac_si_id || !bookingData.ngay_hen || !bookingData.ca_dat ||  !bookingData.chuyen_khoa || !bookingData.gia ) {
+            if (!bookingData.nguoi_dung_id || !bookingData.bac_si_id || !bookingData.ngay_hen || !bookingData.chuyen_khoa || !bookingData.gia) {
                 throw new Error('Thiếu thông tin bắt buộc để đặt lịch');
             }
 
@@ -173,12 +166,11 @@ const Thanhtoan = () => {
             console.log("API Response:", response.data);
 
             if (response.data) {
-                // Emit socket event sau khi đặt lịch thành công
                 socket.emit('new_appointment', {
                     ...bookingData,
                     patient_name: userInfo?.ho_ten,
                     doctor_name: appointment?.doctorName,
-                    appointment_time: `${appointment?.shift?.gio_bat_dau}-${appointment?.shift?.gio_ket_thuc}`,
+                    appointment_time: formattedShift || "Đang chờ", // Để hiển thị trạng thái nếu không có ca đặt
                 });
 
                 setIsModalOpen(false);
@@ -399,7 +391,9 @@ const Thanhtoan = () => {
                                                                         <span style={{ fontWeight: 500, marginLeft: '5px' }}>Giờ khám</span>
                                                                     </p>
                                                                     <p className="styles_itemValues">
-                                                                        {`${appointment?.shift?.gio_bat_dau?.substring(0, 5)} - ${appointment?.shift?.gio_ket_thuc?.substring(0, 5)}` || "Chưa có thông tin"}
+                                                                        {appointment?.shift?.gio_bat_dau && appointment?.shift?.gio_ket_thuc
+                                                                            ? `${appointment.shift.gio_bat_dau.substring(0, 5)} - ${appointment.shift.gio_ket_thuc.substring(0, 5)}`
+                                                                            : "Khám online 1h"}
                                                                     </p>
 
                                                                 </div>
@@ -495,7 +489,9 @@ const Thanhtoan = () => {
                     <li>Bác sĩ: {appointment?.doctorName}</li>
                     <li>Chuyên khoa: {appointment?.doctorSpecialty}</li>
                     <li>Ngày khám: {appointment?.date}</li>
-                    <li>Giờ khám: {`${appointment?.shift?.gio_bat_dau?.substring(0, 5)} - ${appointment?.shift?.gio_ket_thuc?.substring(0, 5)}`}</li>
+                    <li>Giờ khám:  {appointment?.shift?.gio_bat_dau && appointment?.shift?.gio_ket_thuc
+                        ? `${appointment.shift.gio_bat_dau.substring(0, 5)} - ${appointment.shift.gio_ket_thuc.substring(0, 5)}`
+                        : "Khám online 1h"}</li>
                     <li>Tổng tiền:  {appointment?.gia
                         ? new Intl.NumberFormat('vi-VN', {
                             style: 'currency',

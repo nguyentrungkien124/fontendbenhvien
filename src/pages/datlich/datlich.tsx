@@ -22,6 +22,7 @@ interface DoctorInfo {
 }
 
 const socket = io('http://localhost:9999'); // Kết nối với server Socket.IO
+socket.emit("ok",123)
 
 const Datlich = () => {
     const [month, setMonth] = useState(new Date().getMonth());
@@ -223,27 +224,33 @@ const Datlich = () => {
 
     const handleShiftClick = (shift: Shift) => {
         const userLoggedIn = sessionStorage.getItem("ho_ten");
-
+    
         if (!userLoggedIn) {
             navigate("/Dangnhap");
             return;
         }
-
+    
         const doctorName = doctorInfo?.name || "Chưa chọn bác sĩ";
         const doctorSpecialty = doctorInfo?.specialty || "Chưa chọn chuyên khoa";
-        const gia = doctorInfo?.gia
+        const gia = doctorInfo?.gia;
+    
+    // Tạo đối tượng Date từ các phần tử year, month, currentDate
+    const selectedDate = new Date(year, month, currentDate);
+    const formattedDate = selectedDate.toISOString().split('T')[0]; // Chuyển đổi về dạng yyyy-mm-dd
+
         sessionStorage.setItem(
             "selectedAppointment",
             JSON.stringify({
-                date: `${currentDate}-${month + 1}-${year}`,
+                date: formattedDate,
                 shift,
                 doctorName,
                 doctorSpecialty,
                 gia,
+                bac_si_id: bacSiId, // Thêm bac_si_id vào đây
                 appointmentType: 'chuyenkhoa'
             })
         );
-
+    
         navigate(`/Xacnhanthongtin?bac_si_id=${bacSiId}`);
     };
 

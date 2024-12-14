@@ -22,7 +22,8 @@ interface SelectedAppointment {
     shift: Shift;
     doctorName: string;
     doctorSpecialty: string;
-    gia: number
+    gia: number;
+    bac_si_id:string
 }
 
 interface UserInfo {

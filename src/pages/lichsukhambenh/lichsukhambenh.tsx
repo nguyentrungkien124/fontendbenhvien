@@ -141,15 +141,21 @@ const Lichsudadatlich = () => {
       key: 'ca_dat',
       align: 'center',
       render: (text: string) => {
-        if (!text) return '';
-        const times = text.split('-'); // Tách chuỗi tại dấu '-'
-        const formatTime = (time: string) => {
-          const [hours, minutes] = time.split(':');
-          return `${hours}:${minutes}`;
-        };
-        return `${formatTime(times[0])}-${formatTime(times[1])}`;
+          if (!text || typeof text !== 'string' || !text.includes('-')) return 'Khám online 1h'; // Giá trị mặc định
+  
+          const times = text.split('-'); // Tách chuỗi tại dấu '-'
+          
+          const formatTime = (time: string) => {
+              const [hours, minutes] = time.split(':');
+              return `${hours}:${minutes}`;
+          };
+  
+          // Kiểm tra xem times có đủ 2 phần không
+          if (times.length !== 2) return 'Khám online 1h'; // Giá trị mặc định nếu không đủ thời gian
+  
+          return `${formatTime(times[0])}-${formatTime(times[1])}`;
       },
-    },
+  },
     {
         title: 'Chuyên khoa ',
         dataIndex: 'chuyen_khoa',
