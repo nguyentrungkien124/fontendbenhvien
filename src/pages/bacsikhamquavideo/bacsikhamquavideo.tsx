@@ -43,7 +43,7 @@ const Bacsikhamquavideo = function () {
     const [chuyenMonList, setChuyenMonList] = useState<ChuyenMon[]>([]);
     const [khoaList, setKhoaList] = useState<Khoa[]>([]);
     const totalItems = doctors.length; // Số lượng bác sĩ hiện có
-    const itemsPerPage = 4;
+    const itemsPerPage = 10;
     const navigate = useNavigate(); // Khởi tạo useNavigate
 
     useEffect(() => {

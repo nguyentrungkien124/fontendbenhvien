@@ -4,6 +4,7 @@ import { faStar, faChevronLeft, faUser, faMagnifyingGlass, faChevronRight, faLoc
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Slider } from "antd";
+import { useNavigate } from "react-router-dom";
 // import "../index/main.css"
 
 interface khoa {
@@ -27,11 +28,16 @@ interface BacSi {
     mat_khau: string;
     gia: string;
     khambenh_qua_video: boolean;
+    so_luong_kham:string;
+    chuc_danh:string;
+    ten_bac_si:string;
 }
 const Index = function () {
     const [specialties, setSpecialties] = useState<khoa[]>([]);
     const [bacsi, setBacSi] = useState<BacSi[]>([]);
-
+    const [topbacsi,setTopBacSi] =useState<BacSi[]>([]);
+     const navigate = useNavigate();
+     
     useEffect(() => {
         const fetchSpecialties = async () => {
             try {
@@ -56,6 +62,24 @@ const Index = function () {
 
         BacSiQuaVideo();
     }, []);
+
+    useEffect(() => {
+        const Top10Bacsi = async ()=>{
+            try{
+                const response =await axios.get("http://localhost:9999/api//thongke/GetTop10Doctors");
+                setTopBacSi(response.data);
+                console.log(response.data)
+            }catch(error){
+                console.error("Lỗi ghi lấy dữ liệu top 10 bác sĩ:",error);
+            }
+        };
+        Top10Bacsi();
+
+    },[])
+    const handleNavigate = (khoa_id: number) => {
+        navigate(`/chonBacSi?khoa_id=${khoa_id}`);
+    };
+
     // bấm để next
     const [currentIndex, setCurrentIndex] = useState(0);
     const items = [
@@ -311,119 +335,80 @@ const Index = function () {
                             <div className="styles_NewPackageMonth">
                                 <div className="styles_PackageMonthHeader">
                                     <div className="styles_PackageMonthHeaderTitle">
-                                        <h2>Dịch vụ y tế đặt khám nhiều nhất</h2>
+                                        <h2>Bác sĩ có lượt khám nhiều nhất</h2>
                                     </div>
                                 </div>
-                                <div className="styles_BodyCardPackageMonth">
+                                <div className="styles_BodyCardDoctorTelemed">
                                     <div className="ant-carousel">
                                         <div className="slick-slider">
-                                            <button className="slick-prev" style={{ display: 'block' }}>
+                                            <button className="slick-prev" style={{ display: 'block' }} onClick={handlePrevious}>
                                                 <FontAwesomeIcon icon={faChevronLeft} />
                                             </button>
                                             <div className="slick-list">
-                                                <div className="slick-track" style={{ width: '100%', opacity: '1', transform: 'translate3d(0px, 0px, 0px)' }}>
-                                                    <div className="slick-slide" style={{ outline: 'none', width: '300px' }}>
-                                                        <div>
+                                                {topbacsi.map((ts) => {
+                                                    // Tìm tên khoa tương ứng với khoa_id của bác sĩ
+                                                    const tenKhoa = specialties.find((khoa) => khoa.id === ts.khoa_id)?.ten || "Chưa rõ";
+
+                                                    return (
+                                                        <div className="slick-slide" key={ts.id}>
                                                             <div style={{ width: '100%', display: 'inline-block' }}>
-                                                                <div className="styles_DetailPackageMonth">
-                                                                    <div className="styles_DetailCard">
-                                                                        <div className="styles_DetailCardImage">
-                                                                            <span style={{ boxSizing: 'border-box', display: 'inline-block', overflow: 'hidden', width: '256px', height: '130px', background: 'none', opacity: '1', border: '0px', margin: '0px', padding: '0px', position: 'relative' }}>
-                                                                                <img src="../image/goikhamsuckhoe1.webp" alt="" style={{ position: 'absolute', inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: 'auto', display: 'block', width: '0px', height: '0px', minWidth: '100%', maxWidth: '100%', minHeight: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '100%' }} />
+                                                                <div className="styles_DetailDoctor">
+                                                                    <div className="styles_DetailDoctorCard">
+                                                                        <div className="styles_DetailDoctorCardImage">
+                                                                            <span style={{ boxSizing: 'border-box', display: 'inline-block', overflow: 'hidden', background: 'none', opacity: '1', border: '0px', margin: '0px', padding: '0px', position: 'relative' }}>
+                                                                                <img
+                                                                                    src={ts.hinh_anh}
+                                                                                    alt={ts.ten_bac_si}
+                                                                                    style={{ position: 'absolute', inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: 'auto', display: 'block', objectFit: 'cover' }}
+                                                                                />
                                                                             </span>
                                                                         </div>
-                                                                        <div className="styles_DetailCardTitle">
-                                                                            <h2>Gói khám sức khỏe tổng quát</h2>
-                                                                            <div className="styles_address">
-                                                                                <FontAwesomeIcon icon={faLocationDot} />
-                                                                                Khoái Châu, Huyện Khoái Châu
+                                                                    </div>
+                                                                    <div className="styles_DetailDoctorTelemedCardContent">
+                                                                        <div className="styles_CardContentBodyEvaluate">
+                                                                            <p className="styles_item">
+                                                                                <label>Đánh giá:</label>
+                                                                                <span>4.5</span>
+                                                                                <FontAwesomeIcon icon={faStar} style={{ color: '#ffb54a', width: '16px', height: '16px' }} />
+                                                                            </p>
+                                                                            <p className="styles_item">
+                                                                                <label>Lượt khám:</label>
+                                                                                <span>{ts.so_luong_kham}</span>
+                                                                                <FontAwesomeIcon icon={faUser} style={{ color: '#ffb54a', width: '16px', height: '16px' }} />
+                                                                            </p>
+                                                                        </div>
+                                                                        <div className="styles_CardContentHeader">
+                                                                            <h2 className="styles_role">{ts.chuc_danh}</h2>
+                                                                            <h2 className="styles_name">{ts.ten_bac_si}</h2>
+                                                                        </div>
+                                                                        <div className="styles_CardContentBody">
+                                                                            <div className="styles_CardContentBodyText">
+                                                                                <img src="../image/logokhoa1.svg" alt="" />
+                                                                                <p>{tenKhoa}</p>  {/* Hiển thị tên khoa */}
                                                                             </div>
-                                                                            <div className="styles_CardContentBodyRate">
-                                                                                <span className="styles_textRate">
-                                                                                    (4.5)
-                                                                                </span>
-                                                                                <ul className="styles_Rate">
-                                                                                    <li className="ant-rate-star">
-                                                                                        <div >
-                                                                                            <div className="ant-rate-star-first">
-                                                                                                <span className="anticon">
-                                                                                                    <FontAwesomeIcon icon={faStar} style={{ width: '1em', height: '1em' }} />
-
-                                                                                                </span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    {/* <li></li>
-                                                                                    <li></li>
-                                                                                    <li></li>
-                                                                                    <li></li> */}
-                                                                                </ul>
+                                                                            <div className="styles_CardContentBodyText">
+                                                                                <img src="../image/logo2.svg" alt="" />
+                                                                                <p>{parseInt(ts.gia).toLocaleString('vi-VN')} VNĐ</p>  {/* Hiển thị giá với định dạng tiền tệ VNĐ */}
                                                                             </div>
-                                                                            <button className="styles_PackageMonthButton">
-                                                                                <span>Đặt khám ngay</span>
+                                                                            <div className="styles_CardContentBodyText">
+                                                                                <img src="../image/logo3.svg" alt="" />
+                                                                                <p>Bệnh viện Khoái Châu</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="styles_DoctorTelemedFoorterCard">
+                                                                            <button className="ant-btn styles_DoctorTelemedButton">
+                                                                                <span>Tư vấn ngay</span>
                                                                             </button>
                                                                         </div>
-
                                                                     </div>
-
                                                                 </div>
-
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="slick-slide" style={{ outline: 'none', width: '300px' }}>
-                                                        <div>
-                                                            <div style={{ width: '100%', display: 'inline-block' }}>
-                                                                <div className="styles_DetailPackageMonth">
-                                                                    <div className="styles_DetailCard">
-                                                                        <div className="styles_DetailCardImage">
-                                                                            <span style={{ boxSizing: 'border-box', display: 'inline-block', overflow: 'hidden', width: '256px', height: '130px', background: 'none', opacity: '1', border: '0px', margin: '0px', padding: '0px', position: 'relative' }}>
-                                                                                <img src="../image/goikhamsuckhoe1.webp" alt="" style={{ position: 'absolute', inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: 'auto', display: 'block', width: '0px', height: '0px', minWidth: '100%', maxWidth: '100%', minHeight: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '100%' }} />
-                                                                            </span>
-                                                                        </div>
-                                                                        <div className="styles_DetailCardTitle">
-                                                                            <h2>Gói khám sức khỏe tổng quát</h2>
-                                                                            <div className="styles_address">
-                                                                                <FontAwesomeIcon icon={faLocationDot} />
-                                                                                Khoái Châu, Huyện Khoái Châu
-                                                                            </div>
-                                                                            <div className="styles_CardContentBodyRate">
-                                                                                <span className="styles_textRate">
-                                                                                    (4.5)
-                                                                                </span>
-                                                                                <ul className="styles_Rate">
-                                                                                    <li className="ant-rate-star">
-                                                                                        <div >
-                                                                                            <div className="ant-rate-star-first">
-                                                                                                <span className="anticon">
-                                                                                                    <FontAwesomeIcon icon={faStar} style={{ width: '1em', height: '1em' }} />
+                                                    );
+                                                })}
 
-                                                                                                </span>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    {/* <li></li>
-                                                                                    <li></li>
-                                                                                    <li></li>
-                                                                                    <li></li> */}
-                                                                                </ul>
-                                                                            </div>
-                                                                            <button className="styles_PackageMonthButton">
-                                                                                <span>Đặt khám ngay</span>
-                                                                            </button>
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
                                             </div>
-                                            <button className="slick-next" style={{ display: 'block' }}>
+                                            <button className="slick-next" style={{ display: 'block' }}  onClick={handleNext} >
                                                 <FontAwesomeIcon icon={faChevronRight} />
                                             </button>
                                         </div>
@@ -449,7 +434,7 @@ const Index = function () {
                                     <div className="ant-carousel">
                                         <div className="slick-slider">
                                             <button className="slick-prev" style={{ display: 'block' }}>
-                                                <FontAwesomeIcon icon={faChevronLeft} />
+                                                <FontAwesomeIcon icon={faChevronLeft}  onClick={handlePrevious}/>
                                             </button>
                                             <div className="slick-list">
                                                 {bacsi.map((bs) => {
@@ -515,7 +500,7 @@ const Index = function () {
                                                 })}
 
                                             </div>
-                                            <button className="slick-next" style={{ display: 'block' }}>
+                                            <button className="slick-next" style={{ display: 'block' }}  onClick={handleNext} >
                                                 <FontAwesomeIcon icon={faChevronRight} />
                                             </button>
                                         </div>
@@ -618,7 +603,9 @@ const Index = function () {
                                 </div>
                                 <div className="styles_MPSpecialistCardList" style={{ marginLeft: '193px' }}>
                                     {specialties.map((specialty) => (
-                                        <div className="styles_MPSpecialistCardItem" key={specialty.id}>
+                                        <div className="styles_MPSpecialistCardItem" key={specialty.id}
+                                        onClick={() => handleNavigate(specialty.id!)}>
+                                            
                                             <div>
                                                 <span style={{ boxSizing: 'border-box', display: 'inline-block', overflow: 'hidden', width: '100px', height: '100px', background: 'none', opacity: '1', border: '0px', margin: '0px', padding: '0px', position: 'relative' }}>
                                                     <img src={specialty.hinh_anh} alt={specialty.ten} style={{ position: 'absolute', inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: 'auto', display: 'block', width: '100%', height: '100%' }} />
