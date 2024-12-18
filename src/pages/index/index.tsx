@@ -28,21 +28,56 @@ interface BacSi {
     mat_khau: string;
     gia: string;
     khambenh_qua_video: boolean;
-    so_luong_kham:string;
-    chuc_danh:string;
-    ten_bac_si:string;
+    so_luong_kham: string;
+    chuc_danh: string;
+    ten_bac_si: string;
+}
+
+interface BookingPackageDetail {
+    id: number;                   // ID của gói khám
+    goi_kham_id: number;         // ID của gói khám chính
+    ten_chi_tiet: string;        // Tên chi tiết của gói khám
+    mo_ta: string;               // Mô tả về gói khám
+    gia: string;                 // Giá gói khám
+    gia_giam: string;            // Giá đã giảm
+    hinh_anh: string;            // URL hình ảnh của gói khám
 }
 const Index = function () {
+    // const [specialties, setSpecialties] = useState<khoa[]>([]);
+    // const [bacsi, setBacSi] = useState<BacSi[]>([]);
+    const [topbacsi, setTopBacSi] = useState<BacSi[]>([]);
+    //  const navigate = useNavigate();
     const [specialties, setSpecialties] = useState<khoa[]>([]);
     const [bacsi, setBacSi] = useState<BacSi[]>([]);
-    const [topbacsi,setTopBacSi] =useState<BacSi[]>([]);
-     const navigate = useNavigate();
-     
+    const navigate = useNavigate();
+    const [packages, setPackages] = useState<BookingPackageDetail[]>([]);
+    const [selectedType, setSelectedType] = useState(3); // Mặc định chọn gói khám sức khỏe (3)
+    const PAGE = 1; // Trang hiện tại
+    const ITEMS_PER_PAGE = 10; // Số lượng items trên mỗi trang
+
+    useEffect(() => {
+        const fetchPackages = async () => {
+            try {
+                const response = await axios.get(`http://localhost:9999/api/chitietgoikham/getcmgoikham/${selectedType}/${PAGE}/${ITEMS_PER_PAGE}`);
+                setPackages(response.data); // Giả sử response.data chứa mảng các gói khám
+            } catch (error) {
+                console.error("Lỗi khi lấy dữ liệu gói khám:", error);
+            }
+        };
+
+        fetchPackages();
+    }, [selectedType]); // Gọi API mỗi khi selectedType thay đổi
+
+    const handleTypeChange = (type: any) => {
+        setSelectedType(type);
+    };
+
+
     useEffect(() => {
         const fetchSpecialties = async () => {
             try {
                 const response = await axios.get("http://localhost:9999/api/khoa/getall");
-                setSpecialties(response.data); // Lưu dữ liệu vào state
+                setSpecialties(response.data);
             } catch (error) {
                 console.error("Lỗi khi lấy dữ liệu chuyên khoa:", error);
             }
@@ -50,38 +85,58 @@ const Index = function () {
 
         fetchSpecialties();
     }, []);
+
     useEffect(() => {
-        const BacSiQuaVideo = async () => {
+        const fetchBacSi = async () => {
             try {
                 const response = await axios.get("http://localhost:9999/api/bacsi/getBacSiQuaVideo");
-                setBacSi(response.data); // Lưu dữ liệu vào state
+                setBacSi(response.data);
             } catch (error) {
-                console.error("Lỗi khi lấy dữ liệu bác sĩ qua video:", error);
+                console.error("Lỗi khi lấy dữ liệu bác sĩ:", error);
             }
         };
 
-        BacSiQuaVideo();
+        fetchBacSi();
     }, []);
 
+
     useEffect(() => {
-        const Top10Bacsi = async ()=>{
-            try{
-                const response =await axios.get("http://localhost:9999/api//thongke/GetTop10Doctors");
+        const Top10Bacsi = async () => {
+            try {
+                const response = await axios.get("http://localhost:9999/api//thongke/GetTop10Doctors");
                 setTopBacSi(response.data);
                 console.log(response.data)
-            }catch(error){
-                console.error("Lỗi ghi lấy dữ liệu top 10 bác sĩ:",error);
+            } catch (error) {
+                console.error("Lỗi ghi lấy dữ liệu top 10 bác sĩ:", error);
             }
         };
         Top10Bacsi();
 
-    },[])
+    }, [])
     const handleNavigate = (khoa_id: number) => {
         navigate(`/chonBacSi?khoa_id=${khoa_id}`);
     };
 
-    // bấm để next
+    // Pagination logic
     const [currentIndex, setCurrentIndex] = useState(0);
+    const ITEMS_TO_SHOW = 4; // Hiển thị 4 sản phẩm mỗi lần
+    const handleNext = () => {
+        if (currentIndex + ITEMS_TO_SHOW < bacsi.length) {
+            setCurrentIndex((prevIndex) => prevIndex + ITEMS_TO_SHOW);
+        }
+    };
+
+    const handlePrevious = () => {
+        if (currentIndex - ITEMS_TO_SHOW >= 0) {
+            setCurrentIndex((prevIndex) => prevIndex - ITEMS_TO_SHOW);
+        }
+    };
+
+    const currentItems = bacsi.slice(currentIndex, currentIndex + ITEMS_TO_SHOW);
+
+
+    // // bấm để next
+    const [currentIndex1, setCurrentIndex1] = useState(0);
     const items = [
         { imgSrc: "../image/trangchu1.webp", title: "Đặt khám tại bệnh viện" },
         { imgSrc: "../image/trangchu2.webp", title: "Đặt khám theo bác sĩ" },
@@ -93,16 +148,16 @@ const Index = function () {
         { imgSrc: "../image/trangchu.webp", title: "Đặt khám theo bác sĩ" }
     ];
 
-    const ITEMS_TO_SHOW = 7;
-    const MAX_INDEX = items.length - ITEMS_TO_SHOW; // Index cuối cùng mà bạn có thể cuộn đến
+    const ITEMS_TO_SHOW1 = 7;
+    const MAX_INDEX = items.length - ITEMS_TO_SHOW1; // Index cuối cùng mà bạn có thể cuộn đến
 
-    const handleNext = () => {
+    const handleNext1 = () => {
         if (currentIndex < MAX_INDEX) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
         }
     };
 
-    const handlePrevious = () => {
+    const handlePrevious1 = () => {
         if (currentIndex > 0) {
             setCurrentIndex((prevIndex) => prevIndex - 1);
         }
@@ -110,8 +165,8 @@ const Index = function () {
 
     // Create a new array that includes the items shifted for continuous scrolling
     const displayedItems = [
-        ...items.slice(currentIndex, currentIndex + ITEMS_TO_SHOW),
-        ...items.slice(0, Math.max(0, currentIndex + ITEMS_TO_SHOW - items.length))
+        ...items.slice(currentIndex, currentIndex + ITEMS_TO_SHOW1),
+        ...items.slice(0, Math.max(0, currentIndex + ITEMS_TO_SHOW1 - items.length))
     ];
     // banner tự chuyển động
 
@@ -207,12 +262,12 @@ const Index = function () {
                                                         </div>
                                                     ))}
                                                 </div>
-                                                <div className="slick-next" onClick={handleNext} style={{ pointerEvents: currentIndex === items.length - ITEMS_TO_SHOW ? 'none' : 'auto', opacity: currentIndex === items.length - ITEMS_TO_SHOW ? 0.5 : 1 }}>
+                                                {/* <div className="slick-next" onClick={handleNext} style={{ pointerEvents: currentIndex === items.length - ITEMS_TO_SHOW ? 'none' : 'auto', opacity: currentIndex === items.length - ITEMS_TO_SHOW ? 0.5 : 1 }}>
                                                     <FontAwesomeIcon icon={faChevronRight} />
                                                 </div>
                                                 <div className="slick-prev" onClick={handlePrevious} style={{ pointerEvents: currentIndex === 0 ? 'none' : 'auto', opacity: currentIndex === 0 ? 0.5 : 1 }}>
                                                     <FontAwesomeIcon icon={faChevronLeft} />
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -408,7 +463,7 @@ const Index = function () {
                                                 })}
 
                                             </div>
-                                            <button className="slick-next" style={{ display: 'block' }}  onClick={handleNext} >
+                                            <button className="slick-next" style={{ display: 'block' }} onClick={handleNext} >
                                                 <FontAwesomeIcon icon={faChevronRight} />
                                             </button>
                                         </div>
@@ -433,11 +488,11 @@ const Index = function () {
                                 <div className="styles_BodyCardDoctorTelemed">
                                     <div className="ant-carousel">
                                         <div className="slick-slider">
-                                            <button className="slick-prev" style={{ display: 'block' }}>
-                                                <FontAwesomeIcon icon={faChevronLeft}  onClick={handlePrevious}/>
+                                            <button className="slick-prev" style={{ display: 'block' }} onClick={handlePrevious} disabled={currentIndex === 0}>
+                                                <FontAwesomeIcon icon={faChevronLeft} />
                                             </button>
-                                            <div className="slick-list">
-                                                {bacsi.map((bs) => {
+                                            <div className="slick-list" >
+                                                {currentItems.map((bs) => {
                                                     // Tìm tên khoa tương ứng với khoa_id của bác sĩ
                                                     const tenKhoa = specialties.find((khoa) => khoa.id === bs.khoa_id)?.ten || "Chưa rõ";
 
@@ -500,7 +555,7 @@ const Index = function () {
                                                 })}
 
                                             </div>
-                                            <button className="slick-next" style={{ display: 'block' }}  onClick={handleNext} >
+                                            <button className="slick-next" style={{ display: 'block' }} onClick={handleNext} disabled={currentIndex + ITEMS_TO_SHOW >= bacsi.length}>
                                                 <FontAwesomeIcon icon={faChevronRight} />
                                             </button>
                                         </div>
@@ -528,11 +583,31 @@ const Index = function () {
                                 </div>
                                 <div className="styles_NewBookingPackageHerderButton">
                                     <ul className="styles_tag">
-                                        <li><button className="styles_tagItem styles_active"><span>Sức khỏe</span></button></li>
-                                        <li><button className="styles_tagItem styles_active"><span>Tiêm chủng</span></button></li>
-                                        <li><button className="styles_tagItem styles_active"><span>Xét nghiệm</span></button></li>
+                                        <li>
+                                            <button
+                                                className={`styles_tagItem ${selectedType === 2 ? 'styles_active' : ''}`}
+                                                onClick={() => handleTypeChange(2)}
+                                            >
+                                                <span>Sức khỏe</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button
+                                                className={`styles_tagItem ${selectedType === 3 ? 'styles_active' : ''}`}
+                                                onClick={() => handleTypeChange(3)}
+                                            >
+                                                <span>Tiêm chủng</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button
+                                                className={`styles_tagItem ${selectedType === 4 ? 'styles_active' : ''}`}
+                                                onClick={() => handleTypeChange(4)}
+                                            >
+                                                <span>Xét nghiệm</span>
+                                            </button>
+                                        </li>
                                     </ul>
-
                                 </div>
                                 <div className="styles_BodyCardPackage">
                                     <div className="ant-carousel">
@@ -541,45 +616,40 @@ const Index = function () {
                                                 <FontAwesomeIcon icon={faChevronLeft} />
                                             </button>
                                             <div className="slick-list">
-                                                <div className="slick-track" >
-                                                    <div className="slick-slide">
-                                                        <div>
-                                                            <div className="styles_BookingPackageBody">
-                                                                <div className="styles_BookingPackageBodyCard">
-                                                                    <div className="styles_BookingPackageBodyCardImage">
-                                                                        <span style={{ boxSizing: "border-box", display: "inline-block", overflow: "hidden", width: "277px", height: "150px", background: "none", opacity: 1, border: "0px", margin: '0px', padding: '0px', position: 'relative' }}>
-                                                                            <img className="styles_img" src="../image/goikhamsuckhoe1.webp" alt="" style={{ position: 'absolute', inset: "0px", boxSizing: 'border-box', padding: "0px", border: 'none', margin: 'auto', display: 'block', width: '0px', height: '0px', minWidth: '100%', maxWidth: '100%', minHeight: '100%', maxHeight: '100%', objectFit: 'cover' }} />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div className="styles_BookingPackageBodyCardContent">
-                                                                        <div className="styles_BookingPackageName">
-                                                                            <h2>Gói khám sức khỏe tổng quát tại nhà</h2>
-                                                                        </div>
-                                                                        <div className="styles_HospitalName">
-                                                                            <span style={{ boxSizing: 'border-box', display: 'inline-block', overflow: 'hidden', width: '16px', height: '16px', background: 'none', opacity: '1', border: '0px', margin: '0px', padding: '0px', position: 'relative' }}>
-                                                                                <img src="../image/logo3.svg" alt="" style={{ position: 'absolute', width: '0px', height: '0px', inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: 'auto', display: 'block', minWidth: '100%', maxWidth: '100%', minHeight: '100%', maxHeight: '100%' }} />
+                                                <div className="slick-track">
+                                                    {packages.map((pkg) => (
+                                                        <div className="slick-slide" key={pkg.id}>
+                                                            <div>
+                                                                <div className="styles_BookingPackageBody">
+                                                                    <div className="styles_BookingPackageBodyCard">
+                                                                        <div className="styles_BookingPackageBodyCardImage">
+                                                                            <span style={{ display: "block", overflow: "hidden", width: "277px", height: "150px" }}>
+                                                                                <img className="styles_img" src={pkg.hinh_anh} alt={pkg.hinh_anh} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                                                             </span>
-                                                                            <label className="styles_name">
-                                                                                Bệnh viện Khoái Châu
-                                                                            </label>
                                                                         </div>
-                                                                        <div className="styles_BookingPackagePrice">
-                                                                            <span style={{ boxSizing: 'border-box', display: 'inline-block', overflow: 'hidden', width: '16px', height: '16px', background: 'none', opacity: '1', border: '0px', margin: '0px', padding: '0px', position: 'relative' }}>
-                                                                                <img src="../image/logo2.svg" alt="" style={{ position: 'absolute', width: '0px', height: '0px', inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: 'auto', display: 'block', minWidth: '100%', maxWidth: '100%', minHeight: '100%', maxHeight: '100%' }} />
-                                                                            </span>
-                                                                            <p className="styles_Price">530.000đ</p>
-                                                                            <p className="styles_Discount">560.000đ</p>
+                                                                        <div className="styles_BookingPackageBodyCardContent">
+                                                                            <div className="styles_BookingPackageName">
+                                                                                <h2>{pkg.ten_chi_tiet}</h2>
+                                                                            </div>
+                                                                            <div className="styles_HospitalName">
+                                                                                <label className="styles_name">{pkg.mo_ta}</label>
+                                                                            </div>
+                                                                            <div className="styles_BookingPackagePrice">
+                                                                                <p className="styles_Price">{Number(pkg.gia_giam).toLocaleString('vi-VN')}đ</p>
+                                                                                <p className="styles_Discount">{Number(pkg.gia).toLocaleString('vi-VN')}đ</p>
+                                                                            </div>
+
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div className="styles_BookingPackageBodyFoorter">
-                                                                    <button className="ant-btn styles_BookingPackageButton">
-                                                                        <span>Đặt khám ngay</span>
-                                                                    </button>
+                                                                    <div className="styles_BookingPackageBodyFoorter">
+                                                                        <button className="ant-btn styles_BookingPackageButton">
+                                                                            <span>Đặt khám ngay</span>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    ))}
                                                 </div>
                                             </div>
                                             <button className="slick-next" style={{ display: 'block' }}>
@@ -587,10 +657,10 @@ const Index = function () {
                                             </button>
                                         </div>
                                     </div>
+                                    <button className="styles_NextButton">
+                                        <p>Xem tất cả</p>
+                                    </button>
                                 </div>
-                                <button className="styles_NextButton">
-                                    <p>Xem tất cả</p>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -604,8 +674,8 @@ const Index = function () {
                                 <div className="styles_MPSpecialistCardList" style={{ marginLeft: '193px' }}>
                                     {specialties.map((specialty) => (
                                         <div className="styles_MPSpecialistCardItem" key={specialty.id}
-                                        onClick={() => handleNavigate(specialty.id!)}>
-                                            
+                                            onClick={() => handleNavigate(specialty.id!)}>
+
                                             <div>
                                                 <span style={{ boxSizing: 'border-box', display: 'inline-block', overflow: 'hidden', width: '100px', height: '100px', background: 'none', opacity: '1', border: '0px', margin: '0px', padding: '0px', position: 'relative' }}>
                                                     <img src={specialty.hinh_anh} alt={specialty.ten} style={{ position: 'absolute', inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: 'auto', display: 'block', width: '100%', height: '100%' }} />

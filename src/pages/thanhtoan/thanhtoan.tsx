@@ -87,7 +87,7 @@ const Thanhtoan = () => {
         { id: 2, title: "Thẻ quốc tế Visa, Master, JCB", description: "Một số ngân hàng phải đăng kí (thanh toán Online) khi sử dụng thanh toán bằng thẻ tín dụng" },
         { id: 3, title: "Thẻ ATM nội địa/Internet Banking", description: "Một số ngân hàng phải đăng kí (Online/Internet banking) khi thanh toán bằng thẻ ATM" },
         { id: 4, title: "Thanh toán hộ", description: "Chia sẻ link thanh toán cho người thân" },
-        { id: 5, title: "VNPAY OR", description: "Ngân hàng có hỗ trợ VNPAY OR" },
+        { id: 5, title: "Momo", description: "Ngân hàng có hỗ trợ Momo" },
         { id: 6, title: "Thanh toán tại bệnh viện", description: "" },
     ];
 
@@ -137,8 +137,6 @@ const Thanhtoan = () => {
             // Định dạng ca đặt
             const startTime = appointment?.shift?.gio_bat_dau;
             const endTime = appointment?.shift?.gio_ket_thuc;
-
-            // Nếu không có thời gian hợp lệ, để ca đặt là rỗng
             const formattedShift = startTime && endTime ? `${startTime}-${endTime}` : '';
 
             const bookingData = {
@@ -146,7 +144,7 @@ const Thanhtoan = () => {
                 bac_si_id: bacSiId,
                 goi_kham_id: "2",
                 ngay_hen: appointment.date,
-                ca_dat: formattedShift || "Khám online 1h", // Để rỗng nếu không có thời gian hợp lệ
+                ca_dat: formattedShift || "Khám online 1h",
                 trang_thai: "1",
                 gia: gia,
                 chuyen_khoa: chuyen_khoa,
@@ -162,29 +160,35 @@ const Thanhtoan = () => {
                 throw new Error('Thiếu thông tin bắt buộc để đặt lịch');
             }
 
-            const response = await axios.post('http://localhost:9999/api/datlich/them', bookingData);
-            console.log("API Response:", response.data);
-
-            if (response.data) {
-                socket.emit('new_appointment', {
-                    ...bookingData,
-                    patient_name: userInfo?.ho_ten,
-                    doctor_name: appointment?.doctorName,
-                    appointment_time: formattedShift || "Đang chờ", // Để hiển thị trạng thái nếu không có ca đặt
-                });
-
-                setIsModalOpen(false);
+            // Xử lý thanh toán
+            if (selectedMethod === 6) {
+                // Thanh toán tại bệnh viện
                 message.success({
-                    content: 'Đặt lịch khám thành công!',
+                    content: 'Đặt lịch khám thành công! Thanh toán tại bệnh viện.',
                     style: { marginTop: '20px' },
                 });
 
-                setTimeout(() => {
-                    navigate('/');
-                }, 1500);
-            } else {
-                console.error("No data returned from API");
+                // Gửi yêu cầu đặt lịch vào cơ sở dữ liệu
+                const response = await axios.post('http://localhost:9999/api/datlich/them', bookingData);
+                console.log("API Response:", response.data);
+            } else if (selectedMethod === 5) {
+                // Thanh toán qua MoMo
+                const paymentResponse = await axios.post('http://localhost:9999/api/payment', {
+                    method: selectedMethod,
+                    amount: gia || 0, // Giá từ thông tin đặt lịch
+                    bac_si_id: bacSiId, // ID của bác sĩ
+                    orderInfo: `Thanh toán lịch khám ${bacSiId} - ${chuyen_khoa}`, // Thông tin đặt lịch
+                });
+
+                console.log("Payment Response:", paymentResponse.data);
+                if (paymentResponse.data && paymentResponse.data.redirectUrl) {
+                    // Chuyển hướng đến trang thanh toán MoMo
+                    window.location.href = paymentResponse.data.redirectUrl;
+                } else {
+                    throw new Error('Không nhận được URL chuyển hướng từ MoMo');
+                }
             }
+
         } catch (error: any) {
             console.error('Lỗi chi tiết:', error);
             message.error({
@@ -195,7 +199,6 @@ const Thanhtoan = () => {
             setLoading(false);
         }
     };
-
     return (
         <>
             <div className="styles_body2">

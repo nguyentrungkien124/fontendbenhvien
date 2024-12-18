@@ -19,30 +19,36 @@ interface BacSi {
     mat_khau: string;
     gia: string;
     khambenh_qua_video: boolean;
+    chuc_danh: string
 }
 
 interface ChuyenMon {
     id: number;
     ten_chuyen_mon: string;
 }
+
 interface Khoa {
     id: number;
     ten: string;
     mo_ta?: string;
     hinh_anh?: any;
 }
+
 const ChonBacSi = function () {
     const [searchParams] = useSearchParams();
     const khoa_id = searchParams.get('khoa_id');
-    const navigate = useNavigate(); // Khởi tạo useNavigate
+    const navigate = useNavigate();
     const [bacSiList, setBacSiList] = useState<BacSi[]>([]);
     const [chuyenMonList, setChuyenMonList] = useState<ChuyenMon[]>([]);
     const [khoaList, setKhoaList] = useState<Khoa[]>([]);
+    const [academicTitle, setAcademicTitle] = useState('');
+    const [gender, setGender] = useState('');
 
     useEffect(() => {
         const fetchBacSiList = async () => {
             try {
                 const response = await axios.get(`http://localhost:9999/api/bacsi/searchBacSiTheoKhoa/${khoa_id}/1/10`);
+                console.log(response.data)
                 if (response.data && response.data.length > 0) {
                     setBacSiList(response.data);
                 } else {
@@ -61,17 +67,17 @@ const ChonBacSi = function () {
             try {
                 const response = await axios.get('http://localhost:9999/api/chuyenmon/getall');
                 setChuyenMonList(response.data);
-                console.log(response.data)
             } catch (error) {
                 console.error('Lỗi khi lấy danh sách chuyên môn:', error);
             }
         };
         fetchChuyenMonList();
     }, []);
+
     useEffect(() => {
         const fetchKhoaList = async () => {
             try {
-                const response = await axios.get('http://localhost:9999/api/khoa/getall'); // Thay đổi URL nếu cần
+                const response = await axios.get('http://localhost:9999/api/khoa/getall');
                 setKhoaList(response.data);
             } catch (error) {
                 console.error('Lỗi khi lấy danh sách khoa:', error);
@@ -85,38 +91,33 @@ const ChonBacSi = function () {
         const chuyenMon = chuyenMonList.find(cm => cm.id === id);
         return chuyenMon ? chuyenMon.ten_chuyen_mon : 'Không xác định';
     };
+
     const getKhoaName = (id: number) => {
         const khoa = khoaList.find(k => k.id === id);
         return khoa ? khoa.ten : 'Không xác định';
     };
-    const handleBacSiClick = (bacSiId: string, hoTen: string, chuyenKhoa: string,gia:string) => {
-        // Lưu thông tin bác sĩ vào sessionStorage
+
+    const handleBacSiClick = (bacSiId: string, hoTen: string, chuyenKhoa: string, gia: string) => {
         sessionStorage.setItem('selectedDoctor', JSON.stringify({
             id: bacSiId,
             name: hoTen,
             specialty: chuyenKhoa,
-            gia :gia
+            gia: gia
         }));
-
-        // Chuyển sang trang lịch làm việc của bác sĩ
         navigate(`/Datlich?bac_si_id=${bacSiId}`);
     };
 
     const handleBacSiClick1 = (bacSiId: string, hoTen: string, chuyenKhoa: string) => {
-        // Lưu thông tin bác sĩ vào sessionStorage
         sessionStorage.setItem('selectedDoctor', JSON.stringify({
             id: bacSiId,
             name: hoTen,
             specialty: chuyenKhoa
-        
         }));
 
-        // Lưu id bác sĩ vào session với tên bacsi_id
-        sessionStorage.setItem('bacsi_id', bacSiId); // Lưu id bác sĩ
-
-        // Chuyển sang trang chi tiết thông tin bác sĩ
-        navigate(`/Chitietthongtinbacsi?bac_si_id=${bacSiId}`); // Cập nhật đường dẫn
+        sessionStorage.setItem('bacsi_id', bacSiId);
+        navigate(`/Chitietthongtinbacsi?bac_si_id=${bacSiId}`);
     };
+
     return (
         <div className="styles_body2">
             <div className="styles_breadcrumb">
@@ -158,13 +159,13 @@ const ChonBacSi = function () {
                                             </div>
                                         </li>
                                         <li>
-                                            <span>  
+                                            <span>
                                                 <FontAwesomeIcon icon={faMedkit} />
                                             </span>
                                             {bacSiList.length > 0 ? (
                                                 <div className="styles_infoHopital">
                                                     <span style={{ marginLeft: '-22px' }}>Chuyên khoa: </span>
-                                                    {getKhoaName(bacSiList[0].khoa_id)} {/* Hiển thị tên khoa từ bác sĩ đầu tiên */}{/* Hiển thị tên chuyên khoa từ bác sĩ đầu tiên */}
+                                                    {getKhoaName(bacSiList[0].khoa_id)}
                                                 </div>
                                             ) : (
                                                 <p>Không có bác sĩ nào được tìm thấy.</p>
@@ -174,10 +175,9 @@ const ChonBacSi = function () {
                                 </div>
                             </div>
                         </div>
-                        {/*  */}
+
                         <div className="ant_rowsx">
                             <div className="styles_chooseBookingInfo">
-                                {/* 1 */}
                                 <div className="styles_panelsHeader1">
                                     <span>
                                         <div className="styles_animationTop styles_infoBookingTitle" style={{ animationFillMode: 'forwards' }}>
@@ -185,7 +185,7 @@ const ChonBacSi = function () {
                                         </div>
                                     </span>
                                 </div>
-                                {/* 2 */}
+
                                 <div className="styles_chooseDate">
                                     <div className="styles_cardBody1">
                                         <div>
@@ -204,106 +204,128 @@ const ChonBacSi = function () {
                                                         </span>
                                                     </span>
                                                 </div>
+
                                                 <div className="styles_animationTop styles_selectFilter" style={{ animationFillMode: 'forwards', marginLeft: '12px' }}>
-                                                    <div className="ant-select styles_filterItem">
-                                                        <div className="ant-select-selector">
-                                                            <span className="ant-select-selection-item">
-                                                                Học hàm / học vị
-                                                            </span>
-                                                        </div>
-                                                        <span
-                                                            className="ant-select-arrow"
-                                                            unselectable="on"
-                                                            aria-hidden="true"
-                                                            style={{ userSelect: 'none' }}
+                                                    {/* Dropdown for Academic Title */}
+                                                    <div className="ant-select styles_filterItem" style={{ position: 'relative' }}>
+                                                        <select
+                                                            className="ant-select-selector"
+                                                            style={{
+                                                                background: 'linear-gradient(83.63deg, #00b5f1 33.34%, #00e0ff 113.91%)',
+                                                                borderRadius: 5,
+                                                                border: 'none',
+                                                                outline: 'none',
+                                                                paddingRight: '30px', // Increase padding to the right for the arrow
+                                                                appearance: 'none', // Remove default arrow
+                                                                color: '#fff', // Ensure text color is white for visibility
+                                                                fontSize: '16px', // Adjust font size if necessary
+                                                            }}
+                                                            value={academicTitle}
+                                                            onChange={(e) => setAcademicTitle(e.target.value)}
                                                         >
-                                                            <span role="img" aria-label="down" className="anticon anticon-down ant-select-suffix">
-                                                                <FontAwesomeIcon icon={faChevronDown} />
-                                                            </span>
+                                                            <option value="" style={{color:'black'}}>Học hàm / học vị</option>
+                                                            <option value="TS .BS" style={{color:'black'}}>Tiến Sĩ</option>
+                                                            <option value="Ths BS."style={{color:'black'}}>Thạc Sĩ</option>
+                                                            <option value="BS" style={{color:'black'}}>Bác Sĩ</option>
+                                                        </select>
+                                                        <span className="ant-select-arrow" style={{
+                                                            position: 'absolute',
+                                                            right: '10px', // Position the arrow
+                                                            top: '67%', // Center it vertically
+                                                            transform: 'translateY(-50%)', // Adjust for perfect centering
+                                                            zIndex: 1, // Ensure it appears above the select
+                                                            color: '#fff', // Match the text color for consistency
+                                                        }}>
+                                                            <FontAwesomeIcon icon={faChevronDown} />
                                                         </span>
                                                     </div>
+
+                                                    {/* Dropdown for Gender */}
                                                     <div className="ant-select styles_filterItem">
-                                                        <div className="ant-select-selector">
-                                                            <span className="ant-select-selection-item">
-                                                                Giới tính
-                                                            </span>
-                                                        </div>
-                                                        <span
-                                                            className="ant-select-arrow"
-                                                            unselectable="on"
-                                                            aria-hidden="true"
-                                                            style={{ userSelect: 'none' }}
+                                                        <select
+                                                            className="ant-select-selector"
+                                                            value={gender}
+                                                            onChange={(e) => setGender(e.target.value)}
                                                         >
-                                                            <span role="img" aria-label="down" className="anticon anticon-down ant-select-suffix">
-                                                                <FontAwesomeIcon icon={faChevronDown} />
-                                                            </span>
+                                                            <option value="">Giới tính</option>
+                                                            <option value="Nam">Nam</option>
+                                                            <option value="Nữ">Nữ</option>
+                                                            {/* Add more options as needed */}
+                                                        </select>
+                                                        <span className="ant-select-arrow">
+                                                            <FontAwesomeIcon icon={faChevronDown} />
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="styles_animationTop styles_listDoctorCard" style={{ animationFillMode: 'forwards' }}>
-                                                {bacSiList.map((bacSi: BacSi) => {
-                                                    const tenChuyenMon = chuyenMonList.find(chuyenMon => chuyenMon.id === Number(bacSi.chuyen_mon))?.ten_chuyen_mon || 'Không xác định';
 
-                                                    return (
-                                                        <div className="styles_doctorInfo" style={{ marginLeft: '16px' }} key={bacSi.id}>
-                                                            <div className="styles_cardBody" onClick={() => handleBacSiClick(bacSi.id, bacSi.ho_ten, tenChuyenMon,bacSi.gia)}>
-                                                                <div className="styles_highlight styles_infoLine">
-                                                                    <span>
-                                                                        <FontAwesomeIcon icon={faUser} />
-                                                                    </span>
-                                                                    TS BS {bacSi.ho_ten}
-                                                                </div>
-                                                                <div className="styles_infoLine">
-                                                                    <span>
-                                                                        <FontAwesomeIcon icon={faVenusMars} />
-                                                                    </span>
-                                                                    Giới tính: {bacSi.gioi_tinh}
-                                                                </div>
-                                                                <div className="styles_infoLine">
-                                                                    <span>
-                                                                        <FontAwesomeIcon icon={faStethoscope} />
-                                                                    </span>
-                                                                    Chuyên môn: {tenChuyenMon}
-                                                                </div>
-                                                                <div className="styles_infoLine">
-                                                                    <span>
-                                                                        <FontAwesomeIcon icon={faCalendarDays} />
-                                                                    </span>
-                                                                    Lịch khám: Thứ 3 Thứ 5
-                                                                </div>
-                                                                <div className="styles_infoLine" style={{ color: 'red' }}>
-                                                                    <span>
-                                                                        <FontAwesomeIcon icon={faDollarSign} />
-                                                                    </span>
-                                                                    Giá khám: {parseInt(bacSi.gia).toLocaleString('vi-VN')} VNĐ
-                                                                </div>
-                                                                <div style={{ textAlign: 'right', marginTop: '10px' }}>
-                                                                    <button
-                                                                        onClick={(e) => {
-                                                                            e.stopPropagation(); // Ngăn chặn sự kiện click lan truyền
-                                                                            handleBacSiClick1(bacSi.id, bacSi.ho_ten, tenChuyenMon); // Gọi hàm để lưu thông tin và điều hướng
-                                                                        }}
-                                                                        className="view-details-btn"
-                                                                        style={{
-                                                                            backgroundColor: '#808080',
-                                                                            color: '#fff',
-                                                                            border: 'none',
-                                                                            padding: '5px 10px',
-                                                                            borderRadius: '5px',
-                                                                            cursor: 'pointer',
-                                                                            fontSize: '14px',
-                                                                            marginRight: -10
-                                                                        }}
-                                                                    >
-                                                                        Xem Chi Tiết
-                                                                    </button>
+                                            <div className="styles_animationTop styles_listDoctorCard" style={{ animationFillMode: 'forwards' }}>
+                                                {bacSiList
+                                                    .filter(bacSi =>
+                                                        (academicTitle ? bacSi.chuc_danh === academicTitle : true) &&
+                                                        (gender ? bacSi.gioi_tinh === gender : true)
+                                                    )
+                                                    .map((bacSi: BacSi) => {
+                                                        const tenChuyenMon = chuyenMonList.find(chuyenMon => chuyenMon.id === Number(bacSi.chuyen_mon))?.ten_chuyen_mon || 'Không xác định';
+
+                                                        return (
+                                                            <div className="styles_doctorInfo" style={{ marginLeft: '16px' }} key={bacSi.id}>
+                                                                <div className="styles_cardBody" onClick={() => handleBacSiClick(bacSi.id, bacSi.ho_ten, tenChuyenMon, bacSi.gia)}>
+                                                                    <div className="styles_highlight styles_infoLine">
+                                                                        <span>
+                                                                            <FontAwesomeIcon icon={faUser} />
+                                                                        </span>
+                                                                        TS BS {bacSi.ho_ten}
+                                                                    </div>
+                                                                    <div className="styles_infoLine">
+                                                                        <span>
+                                                                            <FontAwesomeIcon icon={faVenusMars} />
+                                                                        </span>
+                                                                        Giới tính: {bacSi.gioi_tinh}
+                                                                    </div>
+                                                                    <div className="styles_infoLine">
+                                                                        <span>
+                                                                            <FontAwesomeIcon icon={faStethoscope} />
+                                                                        </span>
+                                                                        Chuyên môn: {tenChuyenMon}
+                                                                    </div>
+                                                                    <div className="styles_infoLine">
+                                                                        <span>
+                                                                            <FontAwesomeIcon icon={faCalendarDays} />
+                                                                        </span>
+                                                                        Lịch khám: Thứ 3 Thứ 5
+                                                                    </div>
+                                                                    <div className="styles_infoLine" style={{ color: 'red' }}>
+                                                                        <span>
+                                                                            <FontAwesomeIcon icon={faDollarSign} />
+                                                                        </span>
+                                                                        Giá khám: {parseInt(bacSi.gia).toLocaleString('vi-VN')} VNĐ
+                                                                    </div>
+                                                                    <div style={{ textAlign: 'right', marginTop: '10px' }}>
+                                                                        <button
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                handleBacSiClick1(bacSi.id, bacSi.ho_ten, tenChuyenMon);
+                                                                            }}
+                                                                            className="view-details-btn"
+                                                                            style={{
+                                                                                backgroundColor: '#808080',
+                                                                                color: '#fff',
+                                                                                border: 'none',
+                                                                                padding: '5px 10px',
+                                                                                borderRadius: '5px',
+                                                                                cursor: 'pointer',
+                                                                                fontSize: '14px',
+                                                                                marginRight: -10
+                                                                            }}
+                                                                        >
+                                                                            Xem Chi Tiết
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    );
-                                                })}
-
+                                                        );
+                                                    })}
                                             </div>
                                         </div>
                                     </div>

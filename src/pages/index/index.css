@@ -1,6 +1,7 @@
 *, :after, :before {
     box-sizing: border-box;
 }
+
 .styles_bodys{
     margin-top: 140px;
     background: #e8f2f7;
@@ -307,10 +308,14 @@
     left: 14px;
     display: block;
 }
+/* .slick-slide{
+    transition: right 0.5s ease-in-out;
+} */
 .ant-carousel .slick-slide{
     float: left;
     height: 100%;
     min-height: 1px;
+    transition: left 0.5s ease-in-out;
     /* display: none; */
 }
 
@@ -827,15 +832,27 @@
     border-color: transparent;
     color: #fff;
 } */
-.styles_NewBookingPackage .styles_NewBookingPackageHerderButton .styles_tag li{
-    background-color: #00b5f1;
+.styles_NewBookingPackage .styles_NewBookingPackageHerderButton .styles_tag li .styles_tagItem {
+    background-color: white; /* Màu nền mặc định cho tất cả các nút */
     border-color: transparent;
-    color: #fff;
+    color: #000; /* Màu chữ mặc định */
     border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid transparent; /* Có thể thêm border nếu cần */
 }
-.styles_NewBookingPackage .styles_NewBookingPackageHerderButton .styles_tag .styles_tagItem :hover{
+
+.styles_NewBookingPackage .styles_NewBookingPackageHerderButton .styles_tag li .styles_tagItem.styles_active {
+    background-color: #00b5f1; /* Màu nền khi nút được chọn */
+    color: #fff; /* Màu chữ khi nút được chọn */
+    border-color: #00b5f1; /* Border có thể thêm nếu cần */
+}
+/* .styles_NewBookingPackage .styles_NewBookingPackageHerderButton .styles_tag .styles_tagItem :hover{
     border: 1px solid #00b5f1;
-}
+} */
+/* .styles_tag :hover{
+    border: 1px solid #00b5f1;
+} */
 .styles_NewBookingPackage .styles_BodyCardPackage{
     /* display: flex; */
     justify-content: space-between;
