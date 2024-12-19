@@ -111,34 +111,32 @@ const Thanhtoan = () => {
     const handleConfirmPayment = async () => {
         try {
             setLoading(true);
-
+    
             const doctorData = JSON.parse(sessionStorage.getItem("selectedAppointment") || "{}");
             const bacSiId = doctorData?.bac_si_id || "";
             const gia = doctorData?.gia || "";
             const chuyen_khoa = doctorData?.doctorSpecialty || "";
-
+    
             if (!appointment?.date) {
                 throw new Error('Ngày hẹn không hợp lệ');
             }
-
-            console.log("Appointment Data:", appointment);
-            console.log("User ID:", userId);
-            console.log("Bac Si ID:", bacSiId);
-
+    
             // Chuyển đổi định dạng ngày
             const dateParts = appointment.date.split("-");
             if (dateParts.length !== 3) {
                 throw new Error('Định dạng ngày không hợp lệ');
             }
-
+    
             const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-            console.log("Formatted Date:", formattedDate);
-
+    
             // Định dạng ca đặt
             const startTime = appointment?.shift?.gio_bat_dau;
             const endTime = appointment?.shift?.gio_ket_thuc;
             const formattedShift = startTime && endTime ? `${startTime}-${endTime}` : '';
-
+    
+            // Tạo mã đơn hàng tự động
+            const orderId = `ORDER_${Date.now()}`; // Ví dụ: ORDER_1632323232323
+    
             const bookingData = {
                 nguoi_dung_id: parseInt(userId || "0"),
                 bac_si_id: bacSiId,
@@ -150,45 +148,52 @@ const Thanhtoan = () => {
                 chuyen_khoa: chuyen_khoa,
                 ly_do: "",
                 ghi_chu: "Đặt lịch khám qua website",
-                ngay_tao: new Date().toISOString().split('T')[0]
+                ngay_tao: new Date().toISOString().split('T')[0],
+                orderId: orderId // Gửi mã đơn hàng vào dữ liệu đặt lịch
             };
-
-            console.log("Booking Data to be sent:", bookingData);
-
+    
             // Kiểm tra các giá trị bắt buộc
             if (!bookingData.nguoi_dung_id || !bookingData.bac_si_id || !bookingData.ngay_hen || !bookingData.chuyen_khoa || !bookingData.gia) {
                 throw new Error('Thiếu thông tin bắt buộc để đặt lịch');
             }
-
+    
+            // Gửi yêu cầu đặt lịch vào cơ sở dữ liệu và nhận ID
+            
             // Xử lý thanh toán
             if (selectedMethod === 6) {
                 // Thanh toán tại bệnh viện
+                const response = await axios.post('http://localhost:9999/api/datlich/them', bookingData);
                 message.success({
                     content: 'Đặt lịch khám thành công! Thanh toán tại bệnh viện.',
                     style: { marginTop: '20px' },
                 });
-
-                // Gửi yêu cầu đặt lịch vào cơ sở dữ liệu
-                const response = await axios.post('http://localhost:9999/api/datlich/them', bookingData);
-                console.log("API Response:", response.data);
+            
+                // Chuyển hướng về trang chủ
+                navigate('/Thanhcong'); // URL trang chủ
             } else if (selectedMethod === 5) {
                 // Thanh toán qua MoMo
-                const paymentResponse = await axios.post('http://localhost:9999/api/payment', {
-                    method: selectedMethod,
-                    amount: gia || 0, // Giá từ thông tin đặt lịch
-                    bac_si_id: bacSiId, // ID của bác sĩ
-                    orderInfo: `Thanh toán lịch khám ${bacSiId} - ${chuyen_khoa}`, // Thông tin đặt lịch
-                });
-
-                console.log("Payment Response:", paymentResponse.data);
+                const paymentResponse = await axios.post('http://localhost:9999/api/payment', bookingData);
+    
                 if (paymentResponse.data && paymentResponse.data.redirectUrl) {
                     // Chuyển hướng đến trang thanh toán MoMo
                     window.location.href = paymentResponse.data.redirectUrl;
+    
+                    // Kiểm tra trạng thái thanh toán sau khi chuyển hướng
+                    const paymentStatusResponse = await checkPaymentStatus(orderId);
+    
+                    if (paymentStatusResponse.success) {
+                        message.success({
+                            content: 'Đặt lịch khám thành công!',
+                            style: { marginTop: '20px' },
+                        });
+                    } else {
+                        throw new Error('Thanh toán không thành công. Vui lòng thử lại!');
+                    }
                 } else {
                     throw new Error('Không nhận được URL chuyển hướng từ MoMo');
                 }
             }
-
+    
         } catch (error: any) {
             console.error('Lỗi chi tiết:', error);
             message.error({
@@ -198,6 +203,12 @@ const Thanhtoan = () => {
         } finally {
             setLoading(false);
         }
+    };
+    
+    // Hàm kiểm tra trạng thái thanh toán
+    const checkPaymentStatus = async (orderId:any) => {
+        const response = await axios.post('http://localhost:9999/check-status-transaction', { orderId });
+        return response.data; // Giả sử server trả về { success: true/false }
     };
     return (
         <>
